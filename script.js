@@ -1,3 +1,4 @@
+// Image Conversion
 document.getElementById("convertBtn").addEventListener("click", function() {
     let input = document.getElementById("imageInput").files[0];
     let format = document.getElementById("formatSelect").value;
@@ -32,15 +33,70 @@ document.getElementById("convertBtn").addEventListener("click", function() {
     };
 });
 
-// Additional Tools (Future Enhancements)
-document.getElementById("convert-to-pdf").addEventListener("click", function() {
-    alert("Image to PDF conversion will be added soon!");
+// Image to PDF
+document.getElementById("convertToPDF").addEventListener("click", function() {
+    let input = document.getElementById("pdfImageInput").files[0];
+
+    if (!input) {
+        alert("Please select an image.");
+        return;
+    }
+
+    let reader = new FileReader();
+    reader.readAsDataURL(input);
+    
+    reader.onload = function(event) {
+        let img = new Image();
+        img.src = event.target.result;
+
+        img.onload = function() {
+            let doc = new jsPDF();
+            doc.addImage(img, 'JPEG', 10, 10, 180, 160);
+            let link = document.getElementById("downloadPDF");
+            link.href = doc.output('dataurlstring');
+            link.download = "converted.pdf";
+            link.style.display = "block";
+            link.textContent = "Download PDF";
+        };
+    };
 });
 
-document.getElementById("convert-from-pdf").addEventListener("click", function() {
-    alert("PDF to Image conversion will be added soon!");
+// PDF to Image
+document.getElementById("convertFromPDF").addEventListener("click", function() {
+    let input = document.getElementById("pdfInput").files[0];
+
+    if (!input) {
+        alert("Please select a PDF.");
+        return;
+    }
+
+    let reader = new FileReader();
+    reader.readAsArrayBuffer(input);
+
+    reader.onload = function(event) {
+        pdfjsLib.getDocument(new Uint8Array(event.target.result)).promise.then(pdf => {
+            pdf.getPage(1).then(page => {
+                let scale = 2;
+                let viewport = page.getViewport({ scale: scale });
+                let canvas = document.createElement("canvas");
+                let ctx = canvas.getContext("2d");
+
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+
+                page.render({ canvasContext: ctx, viewport: viewport }).promise.then(() => {
+                    let link = document.getElementById("downloadImageFromPDF");
+                    link.href = canvas.toDataURL("image/png");
+                    link.download = "pdf-image.png";
+                    link.style.display = "block";
+                    link.textContent = "Download Image";
+                });
+            });
+        });
+    };
 });
 
-document.getElementById("remove-bg").addEventListener("click", function() {
-    alert("Background removal will be added soon!");
+// Remove Background (Free Alternative)
+document.getElementById("removeBackground").addEventListener("click", function() {
+    alert("Free background removal isn't available yet!");
 });
