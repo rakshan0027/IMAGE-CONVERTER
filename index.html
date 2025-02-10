@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Free Image Converter</h1>
+        <input type="file" id="imageInput">
+        <select id="formatSelect">
+            <option value="png">Convert to PNG</option>
+            <option value="jpg">Convert to JPG</option>
+            <option value="webp">Convert to WebP</option>
+        </select>
+        <button onclick="convertImage()">Convert Image</button>
+        <a id="downloadLink" style="display: none;">Download Converted Image</a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
