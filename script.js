@@ -54,7 +54,7 @@ document.getElementById("convertBtn").addEventListener("click", function() {
     };
 });
 
-// Image to PDF Conversion
+// ✅ FIXED: Image to PDF Conversion
 document.getElementById("convertToPDF").addEventListener("click", function() {
     let input = document.getElementById("pdfImageInput").files[0];
 
@@ -71,18 +71,27 @@ document.getElementById("convertToPDF").addEventListener("click", function() {
         img.src = event.target.result;
 
         img.onload = function() {
-            let doc = new jsPDF();
-            doc.addImage(img, 'JPEG', 10, 10, 180, 160);
-            let link = document.getElementById("downloadPDF");
-            link.href = doc.output('dataurlstring');
+            let doc = new jsPDF({
+                orientation: img.width > img.height ? "landscape" : "portrait",
+                unit: "px",
+                format: [img.width, img.height]
+            });
+
+            doc.addImage(img, 'JPEG', 10, 10, img.width - 20, img.height - 20);
+
+            let pdfData = doc.output("blob");
+
+            let link = document.createElement("a");
+            link.href = URL.createObjectURL(pdfData);
             link.download = "converted.pdf";
             link.style.display = "block";
             link.textContent = "Download PDF";
+            document.getElementById("pdfTool").appendChild(link);
         };
     };
 });
 
-// PDF to Image Conversion
+// ✅ PDF to Image Conversion
 document.getElementById("convertFromPDF").addEventListener("click", function() {
     let input = document.getElementById("pdfInput").files[0];
 
@@ -117,7 +126,7 @@ document.getElementById("convertFromPDF").addEventListener("click", function() {
     };
 });
 
-// Remove Background (Free Placeholder)
+// ✅ Remove Background (Placeholder for Future)
 document.getElementById("removeBackground").addEventListener("click", function() {
     alert("Free background removal isn't available yet! Working on an alternative.");
 });
