@@ -1,72 +1,93 @@
+/* General Page Styling */
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #141e30, #243b55);
-    color: white;
-    text-align: center;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
+    background: linear-gradient(to right, #1e3c72, #2a5298);
+    color: white;
+    text-align: center;
 }
 
+/* Stylish Navigation Menu */
 nav {
-    display: flex;
-    justify-content: space-between;
-    background: #333;
+    background: rgba(0, 0, 0, 0.3);
     padding: 15px;
+    text-align: center;
 }
 
 nav ul {
     list-style: none;
-    display: flex;
-    gap: 20px;
+    padding: 0;
+    margin: 0;
 }
 
 nav ul li {
-    position: relative;
+    display: inline;
+    margin: 0 15px;
 }
 
 nav ul li a {
-    color: white;
     text-decoration: none;
-    padding: 10px 15px;
-    display: block;
-}
-
-/* Dropdown */
-.dropdown {
-    display: none;
-    position: absolute;
-    background: #444;
-    list-style: none;
-    padding: 10px;
-    top: 100%;
-    left: 0;
-    width: 150px;
-}
-
-.dropdown li a {
-    display: block;
-    padding: 10px;
     color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: 0.3s;
 }
 
-nav ul li:hover .dropdown {
-    display: block;
+nav ul li a:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 
-/* Image Converter */
-.container, .tool-section {
-    margin-top: 50px;
+/* Tool Section Styling */
+.tool-section {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 25px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* Buttons */
 button {
-    padding: 10px 20px;
-    margin-top: 10px;
-    background: #28a745;
+    background: #ff9800;
     color: white;
     border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 button:hover {
-    background: #218838;
+    background: #e68900;
+}
+
+/* File Input */
+input[type="file"], select {
+    padding: 10px;
+    width: 90%;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+/* Download Links */
+a {
+    display: block;
+    margin-top: 15px;
+    padding: 10px;
+    background: #4caf50;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+a:hover {
+    background: #45a049;
 }
