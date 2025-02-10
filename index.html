@@ -3,39 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Converter</title>
+    <title>AI Image Converter</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <!-- Navigation Menu -->
     <nav>
-        <div class="logo">Image Converter</div>
+        <div class="logo">AI Image Converter</div>
         <ul>
             <li><a href="#">Home</a></li>
-            <li><a href="#" id="more-tools">More Tools</a>
+            <li><a href="#">More Tools ▼</a>
                 <ul class="dropdown">
                     <li><a href="#" id="convert-to-pdf">Image to PDF</a></li>
                     <li><a href="#" id="convert-from-pdf">PDF to Image</a></li>
                     <li><a href="#" id="remove-bg">Remove Background</a></li>
                 </ul>
             </li>
-            <li><a href="#" id="feedback">Feedback</a></li>
-            <li><a href="#" id="contact">Contact Us</a></li>
+            <li><a href="#">Feedback</a></li>
+            <li><a href="#">Contact Us</a></li>
         </ul>
     </nav>
 
-    <!-- Image Converter Section -->
+    <!-- Image Converter -->
     <div class="container">
         <h1>Convert Your Image</h1>
-        <input type="file" id="imageInput">
+        <input type="file" id="imageInput" accept="image/*">
         <select id="formatSelect">
             <option value="png">PNG</option>
             <option value="jpg">JPG</option>
             <option value="webp">WebP</option>
         </select>
         <button id="convertBtn">Convert Image</button>
-        <a id="downloadLink" style="display: none">Download Converted Image</a>
+        <a id="downloadLink" style="display: none;">Download Converted Image</a>
+    </div>
+
+    <!-- Tools Sections -->
+    <div id="pdfTool" class="tool-section" style="display: none;">
+        <h2>Image to PDF</h2>
+        <input type="file" id="pdfImageInput" accept="image/*">
+        <button id="convertToPDF">Convert to PDF</button>
+        <a id="downloadPDF" style="display: none;">Download PDF</a>
+    </div>
+
+    <div id="pdfToImageTool" class="tool-section" style="display: none;">
+        <h2>PDF to Image</h2>
+        <input type="file" id="pdfInput" accept="application/pdf">
+        <button id="convertFromPDF">Convert PDF</button>
+        <a id="downloadImageFromPDF" style="display: none;">Download Image</a>
+    </div>
+
+    <div id="removeBgTool" class="tool-section" style="display: none;">
+        <h2>Remove Image Background</h2>
+        <input type="file" id="bgImageInput" accept="image/*">
+        <button id="removeBackground">Remove Background</button>
+        <img id="outputBgImage" style="display: none;">
     </div>
 
     <script src="script.js"></script>
