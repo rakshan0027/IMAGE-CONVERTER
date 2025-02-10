@@ -1,101 +1,102 @@
 document.addEventListener("DOMContentLoaded", function () {
-    function showTool(toolId) {
-        document.querySelectorAll('.tool-section').forEach(section => section.style.display = 'none');
-        document.getElementById(toolId).style.display = 'block';
-    }
-
-    // Image Conversion (JPG, PNG, WebP)
+    // Image Converter
     document.getElementById("convertBtn").addEventListener("click", function () {
         let fileInput = document.getElementById("imageInput").files[0];
         let format = document.getElementById("formatSelect").value;
-        
         if (!fileInput) {
-            alert("Please select an image!");
+            alert("Please select an image file.");
             return;
         }
-
         let reader = new FileReader();
-        reader.onload = function (e) {
+        reader.onload = function (event) {
             let img = new Image();
-            img.src = e.target.result;
+            img.src = event.target.result;
             img.onload = function () {
                 let canvas = document.createElement("canvas");
                 let ctx = canvas.getContext("2d");
                 canvas.width = img.width;
                 canvas.height = img.height;
                 ctx.drawImage(img, 0, 0);
-
-                let convertedImage = canvas.toDataURL(`image/${format}`);
-                let downloadLink = document.getElementById("downloadLink");
-                downloadLink.href = convertedImage;
-                downloadLink.download = `converted.${format}`;
-                downloadLink.style.display = "block";
-                downloadLink.innerText = "Download Converted Image";
+                let convertedImage = canvas.toDataURL("image/" + format);
+                let link = document.getElementById("downloadLink");
+                link.href = convertedImage;
+                link.download = "converted_image." + format;
+                link.style.display = "block";
+                link.innerText = "Download Converted Image";
             };
         };
         reader.readAsDataURL(fileInput);
     });
 
-    // Image to PDF
+    // Image to PDF Converter
     document.getElementById("convertToPDF").addEventListener("click", function () {
         let fileInput = document.getElementById("pdfImageInput").files[0];
-        
         if (!fileInput) {
-            alert("Please select an image!");
+            alert("Please select an image file.");
             return;
         }
-
         let reader = new FileReader();
-        reader.onload = function (e) {
-            const { jsPDF } = window.jspdf;
-            let pdf = new jsPDF();
+        reader.onload = function (event) {
             let img = new Image();
-            img.src = e.target.result;
+            img.src = event.target.result;
             img.onload = function () {
-                pdf.addImage(img, "JPEG", 10, 10, 180, 160);
-                pdf.save("converted.pdf");
+                let { jsPDF } = window.jspdf;
+                let doc = new jsPDF();
+                doc.addImage(img, 'JPEG', 10, 10, 180, 160);
+                let pdfOutput = doc.output("bloburl");
+                let link = document.createElement("a");
+                link.href = pdfOutput;
+                link.download = "converted.pdf";
+                link.innerText = "Download PDF";
+                document.getElementById("pdfDownloadContainer").innerHTML = "";
+                document.getElementById("pdfDownloadContainer").appendChild(link);
             };
         };
         reader.readAsDataURL(fileInput);
     });
 
-    // PDF to Image
-    document.getElementById("convertFromPDF").addEventListener("click", async function () {
+    // PDF to Image Converter
+    document.getElementById("convertFromPDF").addEventListener("click", function () {
         let fileInput = document.getElementById("pdfInput").files[0];
-
         if (!fileInput) {
-            alert("Please select a PDF file!");
+            alert("Please select a PDF file.");
             return;
         }
-
         let reader = new FileReader();
-        reader.onload = async function (e) {
-            let loadingTask = pdfjsLib.getDocument({ data: e.target.result });
-            let pdf = await loadingTask.promise;
-            let page = await pdf.getPage(1);
-            let scale = 2;
-            let viewport = page.getViewport({ scale });
-
-            let canvas = document.createElement("canvas");
-            let context = canvas.getContext("2d");
-            canvas.width = viewport.width;
-            canvas.height = viewport.height;
-            let renderContext = { canvasContext: context, viewport: viewport };
-            
-            await page.render(renderContext).promise;
-
-            let imgData = canvas.toDataURL("image/png");
-            let downloadImage = document.getElementById("downloadImageFromPDF");
-            downloadImage.href = imgData;
-            downloadImage.download = "converted_image.png";
-            downloadImage.style.display = "block";
-            downloadImage.innerText = "Download Image";
+        reader.onload = function (event) {
+            let loadingTask = pdfjsLib.getDocument(event.target.result);
+            loadingTask.promise.then(function (pdf) {
+                pdf.getPage(1).then(function (page) {
+                    let scale = 2;
+                    let viewport = page.getViewport({ scale: scale });
+                    let canvas = document.createElement("canvas");
+                    let context = canvas.getContext("2d");
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    let renderContext = { canvasContext: context, viewport: viewport };
+                    page.render(renderContext).promise.then(function () {
+                        let link = document.getElementById("downloadImageFromPDF");
+                        link.href = canvas.toDataURL("image/png");
+                        link.download = "pdf_image.png";
+                        link.style.display = "block";
+                        link.innerText = "Download Image";
+                    });
+                });
+            });
         };
         reader.readAsArrayBuffer(fileInput);
     });
 
-    // Background Removal
-    document.getElementById("removeBackground").addEventListener("click", async function () {
-        alert("This feature requires a backend server to function properly.");
+    // Remove Background - Placeholder Functionality
+    document.getElementById("removeBackground").addEventListener("click", function () {
+        alert("Free background removal isn't available yet! Stay tuned.");
     });
+
+    // Navigation Functionality
+    window.showTool = function (toolId) {
+        document.querySelectorAll(".tool-section").forEach(section => {
+            section.style.display = "none";
+        });
+        document.getElementById(toolId).style.display = "block";
+    };
 });
