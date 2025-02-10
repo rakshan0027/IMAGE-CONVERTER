@@ -17,13 +17,13 @@
             <li><a href="#" onclick="showTool('pdfTool')">Image to PDF</a></li>
             <li><a href="#" onclick="showTool('pdfToImageTool')">PDF to Image</a></li>
             <li><a href="#" onclick="showTool('removeBgTool')">Remove Background</a></li>
+            <li><a href="#" onclick="showTool('aiEnhanceTool')">AI Image Enhance</a></li>
             <li><a href="#" onclick="showTool('feedback')">Feedback</a></li>
             <li><a href="#" onclick="showTool('contact')">Contact Us</a></li>
         </ul>
     </nav>
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4625351312268360"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4625351312268360" crossorigin="anonymous"></script>
 
     <!-- Image Converter Section -->
     <div id="imageConverter" class="tool-section">
@@ -60,6 +60,18 @@
         <input type="file" id="removeBgInput">
         <button id="removeBackground">Remove Background</button>
         <p id="bgRemovalMessage" style="color: red;">Free background removal isn't available yet!</p>
+    </div>
+
+    <!-- AI Image Enhance Section -->
+    <div id="aiEnhanceTool" class="tool-section" style="display:none;">
+        <h2>AI Image Enhance (4K & 8K)</h2>
+        <input type="file" id="aiEnhanceInput">
+        <select id="aiEnhanceQuality">
+            <option value="4k">4K</option>
+            <option value="8k">8K</option>
+        </select>
+        <button id="enhanceImage">Enhance Image</button>
+        <a id="downloadEnhancedImage" style="display:none;" class="download-btn">Download Enhanced Image</a>
     </div>
 
     <!-- Feedback Section -->
