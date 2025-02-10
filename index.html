@@ -4,18 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Converter</title>
-    
-    <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
-
-    <!-- Required Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix"></script>
-    
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4625351312268360" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -31,6 +22,9 @@
         </ul>
     </nav>
 
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4625351312268360"
+     crossorigin="anonymous"></script>
+
     <!-- Image Converter Section -->
     <div id="imageConverter" class="tool-section">
         <h2>Convert Image</h2>
@@ -41,10 +35,10 @@
             <option value="webp">WebP</option>
         </select>
         <button id="convertBtn">Convert</button>
-        <a id="downloadLink" style="display:none;">Download Converted Image</a>
+        <a id="downloadLink" style="display:none;" class="download-btn">Download Converted Image</a>
     </div>
 
-    <!-- Image to PDF Section -->
+    <!-- Image to PDF Converter Section -->
     <div id="pdfTool" class="tool-section" style="display:none;">
         <h2>Convert Image to PDF</h2>
         <input type="file" id="pdfImageInput">
@@ -52,12 +46,12 @@
         <div id="pdfDownloadContainer"></div>
     </div>
 
-    <!-- PDF to Image Section -->
+    <!-- PDF to Image Converter Section -->
     <div id="pdfToImageTool" class="tool-section" style="display:none;">
         <h2>Convert PDF to Image</h2>
         <input type="file" id="pdfInput">
         <button id="convertFromPDF">Convert PDF to Image</button>
-        <a id="downloadImageFromPDF" style="display:none;">Download Image</a>
+        <a id="downloadImageFromPDF" style="display:none;" class="download-btn">Download Image</a>
     </div>
 
     <!-- Remove Background Section -->
@@ -65,17 +59,17 @@
         <h2>Remove Background</h2>
         <input type="file" id="removeBgInput">
         <button id="removeBackground">Remove Background</button>
-        <div id="removeBgOutput"></div>
+        <p id="bgRemovalMessage" style="color: red;">Free background removal isn't available yet!</p>
     </div>
 
     <!-- Feedback Section -->
     <div id="feedback" class="tool-section" style="display:none;">
         <h2>Feedback</h2>
         <textarea placeholder="Write your feedback..."></textarea>
-        <button>Submit</button>
+        <button id="submitFeedback">Submit</button>
     </div>
 
-    <!-- Contact Section -->
+    <!-- Contact Us Section -->
     <div id="contact" class="tool-section" style="display:none;">
         <h2>Contact Us</h2>
         <p>Email: shivohumcreation@gmail.com</p>
