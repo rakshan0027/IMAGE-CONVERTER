@@ -1,78 +1,28 @@
-/* Updated style.css with modern styling */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
-    color: #fff;
+/* Updated Modern Style for Download Buttons */
+
+/* General Button Styling */
+button, a.download-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #007bff, #00d4ff);
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-decoration: none;
     text-align: center;
 }
 
-nav {
-    background: rgba(0, 0, 0, 0.8);
-    padding: 15px;
-    display: flex;
-    justify-content: center;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
+/* Hover Effect */
+button:hover, a.download-btn:hover {
+    background: linear-gradient(135deg, #0056b3, #0099cc);
+    transform: scale(1.05);
 }
 
-nav ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    gap: 20px;
-}
-
-nav ul li {
-    display: inline;
-}
-
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    padding: 10px 15px;
-    transition: 0.3s;
-}
-
-nav ul li a:hover {
-    background: #555;
-    border-radius: 5px;
-}
-
-.tool-section {
-    margin-top: 80px;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 10px;
-    width: 80%;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-}
-
-button {
-    background: #ff9800;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-button:hover {
-    background: #e68900;
-}
-
-input, select, textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 5px;
+/* Center the Buttons */
+.download-btn-container {
+    text-align: center;
+    margin-top: 15px;
 }
