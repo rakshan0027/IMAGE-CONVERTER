@@ -1,11 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Show selected tool
     function showTool(toolId) {
         document.querySelectorAll('.tool-section').forEach(section => section.style.display = 'none');
         document.getElementById(toolId).style.display = 'block';
     }
 
-    // Image Conversion
+    // Image Conversion (JPG, PNG, WebP)
     document.getElementById("convertBtn").addEventListener("click", function () {
         let fileInput = document.getElementById("imageInput").files[0];
         let format = document.getElementById("formatSelect").value;
@@ -54,14 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
             img.src = e.target.result;
             img.onload = function () {
                 pdf.addImage(img, "JPEG", 10, 10, 180, 160);
-                let pdfOutput = pdf.output("bloburl");
-
-                let downloadBtn = document.createElement("a");
-                downloadBtn.href = pdfOutput;
-                downloadBtn.innerText = "Download PDF";
-                downloadBtn.download = "converted.pdf";
-                document.getElementById("pdfDownloadContainer").innerHTML = "";
-                document.getElementById("pdfDownloadContainer").appendChild(downloadBtn);
+                pdf.save("converted.pdf");
             };
         };
         reader.readAsDataURL(fileInput);
@@ -103,49 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Background Removal
-    async function removeBackground() {
-        let fileInput = document.getElementById("removeBgInput").files[0];
-
-        if (!fileInput) {
-            alert("Please select an image!");
-            return;
-        }
-
-        let reader = new FileReader();
-        reader.onload = async function (e) {
-            let img = new Image();
-            img.src = e.target.result;
-            img.onload = async function () {
-                let canvas = document.createElement("canvas");
-                let ctx = canvas.getContext("2d");
-                canvas.width = img.width;
-                canvas.height = img.height;
-                ctx.drawImage(img, 0, 0);
-
-                // Load TensorFlow.js BodyPix model
-                const net = await bodyPix.load();
-                const segmentation = await net.segmentPerson(img);
-
-                let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                let pixels = imageData.data;
-
-                for (let i = 0; i < pixels.length; i += 4) {
-                    if (segmentation.data[i / 4] === 0) {
-                        pixels[i + 3] = 0; // Make background transparent
-                    }
-                }
-                ctx.putImageData(imageData, 0, 0);
-
-                let processedImg = canvas.toDataURL("image/png");
-                let downloadLink = document.createElement("a");
-                downloadLink.href = processedImg;
-                downloadLink.download = "no_bg_image.png";
-                downloadLink.innerText = "Download Image Without Background";
-                document.getElementById("removeBgTool").appendChild(downloadLink);
-            };
-        };
-        reader.readAsDataURL(fileInput);
-    }
-
-    document.getElementById("removeBackground").addEventListener("click", removeBackground);
+    document.getElementById("removeBackground").addEventListener("click", async function () {
+        alert("This feature requires a backend server to function properly.");
+    });
 });
