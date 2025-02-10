@@ -3,22 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Converter</title>
+    <title>Image Converter - Convert Images for Free</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+        <h1>Image Converter</h1>
+        <p>Convert your images instantly for free</p>
+    </header>
 
-    <div class="container">
-        <h1>Free Image Converter</h1>
-        <input type="file" id="imageInput">
-        <select id="formatSelect">
-            <option value="png">Convert to PNG</option>
-            <option value="jpg">Convert to JPG</option>
-            <option value="webp">Convert to WebP</option>
-        </select>
-        <button onclick="convertImage()">Convert Image</button>
-        <a id="downloadLink" style="display: none;">Download Converted Image</a>
-    </div>
+    <main>
+        <div class="upload-section">
+            <input type="file" id="imageInput" accept="image/*">
+            <select id="formatSelect">
+                <option value="png">Convert to PNG</option>
+                <option value="jpg">Convert to JPG</option>
+                <option value="webp">Convert to WebP</option>
+            </select>
+            <button onclick="convertImage()">Convert</button>
+        </div>
+
+        <div class="output-section">
+            <h2>Converted Image:</h2>
+            <canvas id="canvas"></canvas>
+            <a id="downloadLink" style="display: none;">Download</a>
+        </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
