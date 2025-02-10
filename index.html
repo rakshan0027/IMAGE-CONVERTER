@@ -3,37 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Converter - Convert Images for Free</title>
+    <title>Image Converter</title>
     <link rel="stylesheet" href="style.css">
-
-    <!-- Google AdSense Code -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4625351312268360" crossorigin="anonymous"></script>
-
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <header>
-        <h1>Image Converter</h1>
-        <p>Convert your images instantly for free</p>
-    </header>
 
-    <main>
-        <div class="upload-section">
-            <input type="file" id="imageInput" accept="image/*">
-            <select id="formatSelect">
-                <option value="png">Convert to PNG</option>
-                <option value="jpg">Convert to JPG</option>
-                <option value="webp">Convert to WebP</option>
-            </select>
-            <button onclick="convertImage()">Convert</button>
-        </div>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">Image Converter</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Feedback</a></li>
+            <li class="dropdown">
+                <a href="#">Other Tools ▼</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Image to PDF</a></li>
+                    <li><a href="#">PDF to Image</a></li>
+                    <li><a href="#">Remove Background</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Contact Us</a></li>
+        </ul>
+    </nav>
 
-        <div class="output-section">
-            <h2>Converted Image:</h2>
-            <canvas id="canvas"></canvas>
-            <a id="downloadLink" style="display: none;">Download</a>
-        </div>
-    </main>
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Welcome to Image Converter</h1>
+        <p>Convert your images quickly and easily!</p>
+    </div>
 
-    <script src="script.js"></script>
 </body>
 </html>
