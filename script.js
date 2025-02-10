@@ -1,4 +1,25 @@
-// Image Conversion
+// Function to show the selected tool and hide others
+function showTool(toolId) {
+    document.querySelectorAll(".tool-section").forEach(section => {
+        section.style.display = "none"; // Hide all sections
+    });
+    document.getElementById(toolId).style.display = "block"; // Show selected tool
+}
+
+// Event Listeners for Menu Options
+document.getElementById("convert-to-pdf").addEventListener("click", function() {
+    showTool("pdfTool");
+});
+
+document.getElementById("convert-from-pdf").addEventListener("click", function() {
+    showTool("pdfToImageTool");
+});
+
+document.getElementById("remove-bg").addEventListener("click", function() {
+    showTool("removeBgTool");
+});
+
+// Image to PNG, JPG, WebP Conversion
 document.getElementById("convertBtn").addEventListener("click", function() {
     let input = document.getElementById("imageInput").files[0];
     let format = document.getElementById("formatSelect").value;
@@ -33,7 +54,7 @@ document.getElementById("convertBtn").addEventListener("click", function() {
     };
 });
 
-// Image to PDF
+// Image to PDF Conversion
 document.getElementById("convertToPDF").addEventListener("click", function() {
     let input = document.getElementById("pdfImageInput").files[0];
 
@@ -61,7 +82,7 @@ document.getElementById("convertToPDF").addEventListener("click", function() {
     };
 });
 
-// PDF to Image
+// PDF to Image Conversion
 document.getElementById("convertFromPDF").addEventListener("click", function() {
     let input = document.getElementById("pdfInput").files[0];
 
@@ -96,7 +117,7 @@ document.getElementById("convertFromPDF").addEventListener("click", function() {
     };
 });
 
-// Remove Background (Free Alternative)
+// Remove Background (Free Placeholder)
 document.getElementById("removeBackground").addEventListener("click", function() {
-    alert("Free background removal isn't available yet!");
+    alert("Free background removal isn't available yet! Working on an alternative.");
 });
