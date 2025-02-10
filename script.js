@@ -55,7 +55,7 @@ document.getElementById("convertBtn").addEventListener("click", function() {
 });
 
 // ✅ FIXED: Image to PDF Conversion
-document.getElementById("convertToPDF").addEventListener("click", function() {
+document.getElementById("convertToPDF").addEventListener("click", function () {
     let input = document.getElementById("pdfImageInput").files[0];
 
     if (!input) {
@@ -65,31 +65,31 @@ document.getElementById("convertToPDF").addEventListener("click", function() {
 
     let reader = new FileReader();
     reader.readAsDataURL(input);
-    
-    reader.onload = function(event) {
+
+    reader.onload = function (event) {
         let img = new Image();
         img.src = event.target.result;
 
-        img.onload = function() {
+        img.onload = function () {
             let doc = new jsPDF({
                 orientation: img.width > img.height ? "landscape" : "portrait",
-                unit: "px",
-                format: [img.width, img.height]
+                unit: "mm",
+                format: [img.width * 0.2645, img.height * 0.2645], // Convert pixels to mm
             });
 
-            doc.addImage(img, 'JPEG', 10, 10, img.width - 20, img.height - 20);
+            doc.addImage(img, "JPEG", 10, 10, img.width * 0.2, img.height * 0.2);
 
-            let pdfData = doc.output("blob");
-
+            let pdfBlob = doc.output("blob");
             let link = document.createElement("a");
-            link.href = URL.createObjectURL(pdfData);
+            link.href = URL.createObjectURL(pdfBlob);
             link.download = "converted.pdf";
             link.style.display = "block";
             link.textContent = "Download PDF";
-            document.getElementById("pdfTool").appendChild(link);
+            document.getElementById("pdfDownloadContainer").appendChild(link);
         };
     };
 });
+
 
 // ✅ PDF to Image Conversion
 document.getElementById("convertFromPDF").addEventListener("click", function() {
