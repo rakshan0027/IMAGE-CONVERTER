@@ -30,8 +30,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // Razorpay Payment for Premium Feature
     document.getElementById("buyPremium").addEventListener("click", function () {
         let options = {
-            "key": "YOUR_RAZORPAY_KEY", // Replace with your actual Razorpay Key
-            "amount": 49900, // Amount in paisa (₹499.00)
+            "key": "rzp_test_5XL0rkhnhFm6QX", // Replace with your actual Razorpay Key
+            "amount": 9, // Amount in paisa (₹499.00)
             "currency": "INR",
             "name": "Premium Access",
             "description": "Unlock background removal",
