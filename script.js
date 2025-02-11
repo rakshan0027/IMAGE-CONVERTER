@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        let response = await fetch("http://localhost:5000/download", {
+        let response = await fetch("https://your-backend-url.com/download", { // Update this URL
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ url, format })
