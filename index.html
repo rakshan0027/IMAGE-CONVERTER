@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image & PDF Converter</title>
+    <title>Image Converter & Background Removal</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
@@ -23,8 +23,8 @@
         </ul>
     </nav>
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4625351312268360"
-     crossorigin="anonymous"></script>
+    <!-- Ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4625351312268360" crossorigin="anonymous"></script>
 
     <!-- Image Converter Section -->
     <div id="imageConverter" class="tool-section">
@@ -55,14 +55,13 @@
         <a id="downloadImageFromPDF" style="display:none;" class="download-btn">Download Image</a>
     </div>
 
-    <!-- Remove Background Section -->
+    <!-- Remove Background Section (Premium Feature) -->
     <div id="removeBgTool" class="tool-section" style="display:none;">
         <h2>Remove Background</h2>
-        <button id="buyPremium">Buy Premium</button>
-        <div id="removeBgSection" style="display:none;">
-            <input type="file" id="removeBgInput">
-            <button id="removeBackground">Remove Background</button>
-        </div>
+        <input type="file" id="removeBgInput">
+        <button id="removeBackground" disabled>Remove Background</button>
+        <p id="bgRemovalMessage" style="color: red;">Premium users only!</p>
+        <button id="buyPremium">Buy Premium - ₹499</button>
     </div>
 
     <!-- Feedback Section -->
