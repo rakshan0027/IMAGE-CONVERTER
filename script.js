@@ -3,10 +3,12 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("convertBtn").addEventListener("click", function() {
         let input = document.getElementById("imageInput").files[0];
         let format = document.getElementById("formatSelect").value;
+
         if (!input) {
             alert("Please select an image file.");
             return;
         }
+
         let reader = new FileReader();
         reader.onload = function(e) {
             let img = new Image();
@@ -17,11 +19,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 canvas.height = img.height;
                 let ctx = canvas.getContext("2d");
                 ctx.drawImage(img, 0, 0);
-                let convertedImage = canvas.toDataURL("image/" + format);
+
+                let mimeType = format === "jpg" ? "image/jpeg" : "image/" + format;
+                let convertedImage = canvas.toDataURL(mimeType);
+
                 let link = document.getElementById("downloadLink");
                 link.href = convertedImage;
                 link.download = "converted-image." + format;
                 link.style.display = "block";
+                link.textContent = "Download Converted Image";
             };
         };
         reader.readAsDataURL(input);
