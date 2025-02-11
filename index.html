@@ -3,25 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI SEO Tools & Image Processing</title>
+    <title>AI Tools & Image Processing</title>
     <link rel="stylesheet" href="style.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4625351312268360" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    
-    <!-- Google AdSense Code -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4625351312268360" crossorigin="anonymous"></script>
 </head>
 <body>
-
     <!-- Navigation Menu -->
     <nav>
         <ul>
+            <li><a href="#" onclick="showTool('aiSeoTools')">AI SEO Tools</a></li>
             <li><a href="#" onclick="showTool('imageConverter')">Convert Image</a></li>
             <li><a href="#" onclick="showTool('pdfTool')">Image to PDF</a></li>
             <li><a href="#" onclick="showTool('pdfToImageTool')">PDF to Image</a></li>
             <li><a href="#" onclick="showTool('removeBgTool')">Remove Background</a></li>
-            <li><a href="#" onclick="showTool('aiSeoTools')">AI SEO Tools</a></li>
             <li><a href="#" onclick="showTool('feedback')">Feedback</a></li>
             <li><a href="#" onclick="showTool('contact')">Contact Us</a></li>
         </ul>
@@ -31,19 +28,65 @@
     <div id="aiSeoTools" class="tool-section" style="display:none;">
         <h2>AI SEO Tools</h2>
         <ul>
-            <li><a href="#" onclick="useSeoTool('keywordResearch')">AI Keyword Research</a></li>
-            <li><a href="#" onclick="useSeoTool('seoAnalyzer')">SEO Score Analyzer</a></li>
-            <li><a href="#" onclick="useSeoTool('metaGenerator')">Meta Tag Generator</a></li>
-            <li><a href="#" onclick="useSeoTool('contentOptimizer')">AI Content Optimization</a></li>
-            <li><a href="#" onclick="useSeoTool('backlinkChecker')">Backlink Checker</a></li>
-            <li><a href="#" onclick="useSeoTool('plagiarismChecker')">Plagiarism Checker</a></li>
-            <li><a href="#" onclick="useSeoTool('contentParaphraser')">AI Writer & Paraphraser</a></li>
+            <li><a href="#" onclick="showTool('keywordResearch')">AI-Powered Keyword Research</a></li>
+            <li><a href="#" onclick="showTool('seoScore')">SEO Score Analyzer</a></li>
+            <li><a href="#" onclick="showTool('metaTagGenerator')">Meta Tag & Description Generator</a></li>
+            <li><a href="#" onclick="showTool('contentOptimizer')">AI Content Optimization</a></li>
+            <li><a href="#" onclick="showTool('backlinkChecker')">Backlink Checker</a></li>
+            <li><a href="#" onclick="showTool('plagiarismChecker')">Plagiarism Checker</a></li>
+            <li><a href="#" onclick="showTool('aiWriter')">Content Paraphraser & AI Writer</a></li>
         </ul>
     </div>
 
     <!-- Other Tool Sections (Image Converter, PDF Tools, Remove Background, etc.) -->
-    <!-- Existing tool sections remain unchanged -->
-    
+    <div id="imageConverter" class="tool-section" style="display:none;">
+        <h2>Convert Image</h2>
+        <input type="file" id="imageInput">
+        <select id="formatSelect">
+            <option value="png">PNG</option>
+            <option value="jpg">JPG</option>
+            <option value="webp">WebP</option>
+        </select>
+        <button id="convertBtn">Convert</button>
+        <a id="downloadLink" style="display:none;" class="download-btn">Download Converted Image</a>
+    </div>
+
+    <div id="pdfTool" class="tool-section" style="display:none;">
+        <h2>Convert Image to PDF</h2>
+        <input type="file" id="pdfImageInput">
+        <button id="convertToPDF">Convert to PDF</button>
+        <div id="pdfDownloadContainer"></div>
+    </div>
+
+    <div id="pdfToImageTool" class="tool-section" style="display:none;">
+        <h2>Convert PDF to Image</h2>
+        <input type="file" id="pdfInput">
+        <button id="convertFromPDF">Convert PDF to Image</button>
+        <a id="downloadImageFromPDF" style="display:none;" class="download-btn">Download Image</a>
+    </div>
+
+    <div id="removeBgTool" class="tool-section" style="display:none;">
+        <h2>Remove Background</h2>
+        <input type="file" id="removeBgInput">
+        <button id="removeBackground" disabled>Remove Background</button>
+        <p id="bgRemovalMessage" style="color: red;">Premium users only!</p>
+        <button id="buyPremium">Buy Premium - ₹9</button>
+    </div>
+
+    <!-- Feedback Section -->
+    <div id="feedback" class="tool-section" style="display:none;">
+        <h2>Feedback</h2>
+        <textarea placeholder="Write your feedback..."></textarea>
+        <button id="submitFeedback">Submit</button>
+    </div>
+
+    <!-- Contact Us Section -->
+    <div id="contact" class="tool-section" style="display:none;">
+        <h2>Contact Us</h2>
+        <p>Email: shivohumcreation@gmail.com</p>
+        <p>Phone: +91 9696866194</p>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
