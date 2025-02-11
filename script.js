@@ -21,12 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 let height = (img.height / img.width) * width;
 
                 pdf.addImage(img, "JPEG", 0, 0, width, height);
-                let pdfBlob = pdf.output("blob");
-
-                let link = document.createElement("a");
-                link.href = URL.createObjectURL(pdfBlob);
-                link.download = "converted.pdf";
-                link.click();
+                pdf.save("converted.pdf");
             };
         };
         reader.readAsDataURL(input);
@@ -68,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         link.href = imageUrl;
                         link.download = "pdf-image.png";
                         link.style.display = "block";
+                        link.click(); // Auto-download
                     });
                 });
             });
@@ -79,16 +75,15 @@ document.addEventListener("DOMContentLoaded", function () {
     // 🚀 Buy Premium Feature (Unlock Background Removal)
     document.getElementById("buyPremium").addEventListener("click", function () {
         var options = {
-            key: "rzp_test_5XL0rkhnhFm6QX",
-            amount: 9, // ₹499
+            key: "rzp_test_5XL0rkhnhFm6QX", // Use Live Key in Production
+            amount: 9, // ₹499 in paise
             currency: "INR",
             name: "Premium Access",
             description: "Unlock Background Removal",
             handler: function (response) {
                 localStorage.setItem("premiumUser", "true");
                 alert("Payment successful! Background removal unlocked.");
-                document.getElementById("removeBackground").disabled = false;
-                document.getElementById("bgRemovalMessage").style.display = "none";
+                enablePremiumFeatures();
             },
             prefill: {
                 email: "shivohumcreation@gmail.com"
@@ -100,10 +95,31 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // ✅ Unlock Background Removal for Premium Users
-    if (localStorage.getItem("premiumUser") === "true") {
+    function enablePremiumFeatures() {
         document.getElementById("removeBackground").disabled = false;
         document.getElementById("bgRemovalMessage").style.display = "none";
     }
+
+    if (localStorage.getItem("premiumUser") === "true") {
+        enablePremiumFeatures();
+    }
+
+    // ✉️ Feedback Submission
+    document.getElementById("submitFeedback").addEventListener("click", function () {
+        let feedbackText = document.querySelector("#feedback textarea").value.trim();
+
+        if (!feedbackText) {
+            alert("Please enter your feedback before submitting.");
+            return;
+        }
+
+        let feedbacks = JSON.parse(localStorage.getItem("feedbacks")) || [];
+        feedbacks.push(feedbackText);
+        localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
+
+        alert("Thank you for your feedback!");
+        document.querySelector("#feedback textarea").value = "";
+    });
 
     // 🔀 Navigation Menu Functionality
     function showTool(toolId) {
