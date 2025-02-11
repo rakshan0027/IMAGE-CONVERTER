@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Converter Pro</title>
+    <title>Image & Video Converter</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix"></script>
 </head>
 <body>
 
@@ -19,7 +17,7 @@
             <li><a href="#" onclick="showTool('pdfTool')">Image to PDF</a></li>
             <li><a href="#" onclick="showTool('pdfToImageTool')">PDF to Image</a></li>
             <li><a href="#" onclick="showTool('removeBgTool')">Remove Background</a></li>
-            <li><a href="#" onclick="showTool('aiEnhance')">AI Image Enhance</a></li>
+            <li><a href="#" onclick="showTool('ytDownloader')">YouTube to MP3/MP4</a></li>
             <li><a href="#" onclick="showTool('feedback')">Feedback</a></li>
             <li><a href="#" onclick="showTool('contact')">Contact Us</a></li>
         </ul>
@@ -38,7 +36,7 @@
             <option value="webp">WebP</option>
         </select>
         <button id="convertBtn">Convert</button>
-        <a id="downloadLink" style="display:none;" class="download-btn">Download Image</a>
+        <a id="downloadLink" style="display:none;" class="download-btn">Download Converted Image</a>
     </div>
 
     <!-- Image to PDF Converter Section -->
@@ -53,7 +51,7 @@
     <div id="pdfToImageTool" class="tool-section" style="display:none;">
         <h2>Convert PDF to Image</h2>
         <input type="file" id="pdfInput">
-        <button id="convertFromPDF">Convert</button>
+        <button id="convertFromPDF">Convert PDF to Image</button>
         <a id="downloadImageFromPDF" style="display:none;" class="download-btn">Download Image</a>
     </div>
 
@@ -61,16 +59,20 @@
     <div id="removeBgTool" class="tool-section" style="display:none;">
         <h2>Remove Background</h2>
         <input type="file" id="removeBgInput">
-        <button id="removeBackground">Remove</button>
-        <a id="downloadBgRemoved" style="display:none;" class="download-btn">Download Image</a>
+        <button id="removeBackground">Remove Background</button>
+        <p id="bgRemovalMessage" style="color: red;">Free background removal isn't available yet!</p>
     </div>
 
-    <!-- AI Image Enhance Section -->
-    <div id="aiEnhance" class="tool-section" style="display:none;">
-        <h2>AI Image Enhance</h2>
-        <input type="file" id="enhanceInput">
-        <button id="enhanceImage">Enhance to 4K/8K</button>
-        <p id="aiEnhanceMessage" style="color: red;">AI Image Enhancement requires premium access.</p>
+    <!-- YouTube Video Downloader Section -->
+    <div id="ytDownloader" class="tool-section" style="display:none;">
+        <h2>YouTube Video Downloader</h2>
+        <input type="text" id="videoUrl" placeholder="Enter YouTube URL">
+        <select id="formatSelectYT">
+            <option value="mp4">MP4</option>
+            <option value="mp3">MP3</option>
+        </select>
+        <button id="downloadYT">Download</button>
+        <a id="ytDownloadLink" style="display:none;" class="download-btn">Download File</a>
     </div>
 
     <!-- Feedback Section -->
