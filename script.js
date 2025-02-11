@@ -1,5 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // 🖼️ Convert Image to PDF
+    // Function to show selected tool
+    function showTool(toolId) {
+        document.querySelectorAll(".tool-section").forEach(section => {
+            section.style.display = "none";
+        });
+        document.getElementById(toolId).style.display = "block";
+    }
+    window.showTool = showTool;
+
+    // AI SEO Tools Navigation
+    function useSeoTool(tool) {
+        alert("You selected: " + tool);
+    }
+    window.useSeoTool = useSeoTool;
+
+    // Convert Image to PDF
     document.getElementById("convertToPDF").addEventListener("click", function () {
         let input = document.getElementById("pdfImageInput").files[0];
         if (!input) {
@@ -23,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
         reader.readAsDataURL(input);
     });
 
-    // 📄 Convert PDF to Image
+    // Convert PDF to Image
     document.getElementById("convertFromPDF").addEventListener("click", function () {
         let fileInput = document.getElementById("pdfInput");
         let file = fileInput.files[0];
@@ -42,7 +57,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     let context = canvas.getContext("2d");
                     canvas.width = viewport.width;
                     canvas.height = viewport.height;
-                    let renderContext = { canvasContext: context, viewport: viewport };
+                    let renderContext = {
+                        canvasContext: context,
+                        viewport: viewport,
+                    };
                     page.render(renderContext).promise.then(function () {
                         let imageUrl = canvas.toDataURL("image/png");
                         let link = document.getElementById("downloadImageFromPDF");
@@ -57,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
         reader.readAsArrayBuffer(file);
     });
 
-    // 🚀 Buy Premium Feature (Unlock Background Removal)
+    // Buy Premium Feature (Unlock Background Removal)
     document.getElementById("buyPremium").addEventListener("click", function () {
         var options = {
             key: "rzp_test_5XL0rkhnhFm6QX",
@@ -70,7 +88,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("Payment successful! Background removal unlocked.");
                 enablePremiumFeatures();
             },
-            prefill: { email: "shivohumcreation@gmail.com" }
+            prefill: {
+                email: "shivohumcreation@gmail.com"
+            }
         };
         var rzp = new Razorpay(options);
         rzp.open();
@@ -80,39 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("removeBackground").disabled = false;
         document.getElementById("bgRemovalMessage").style.display = "none";
     }
-
     if (localStorage.getItem("premiumUser") === "true") {
         enablePremiumFeatures();
     }
-
-    // ✉️ Feedback Submission
-    document.getElementById("submitFeedback").addEventListener("click", function () {
-        let feedbackText = document.querySelector("#feedback textarea").value.trim();
-        if (!feedbackText) {
-            alert("Please enter your feedback before submitting.");
-            return;
-        }
-        let feedbacks = JSON.parse(localStorage.getItem("feedbacks")) || [];
-        feedbacks.push(feedbackText);
-        localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
-        alert("Thank you for your feedback!");
-        document.querySelector("#feedback textarea").value = "";
-    });
-
-    // 📈 AI SEO Tools Navigation
-    document.querySelectorAll(".ai-seo-tool").forEach(tool => {
-        tool.addEventListener("click", function () {
-            let toolName = this.getAttribute("data-tool");
-            alert(`Launching ${toolName}...`);
-        });
-    });
-
-    // 🔀 Navigation Menu Functionality
-    function showTool(toolId) {
-        document.querySelectorAll(".tool-section").forEach(section => {
-            section.style.display = "none";
-        });
-        document.getElementById(toolId).style.display = "block";
-    }
-    window.showTool = showTool;
 });
