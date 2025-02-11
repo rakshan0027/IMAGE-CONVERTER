@@ -27,30 +27,33 @@ document.addEventListener("DOMContentLoaded", function() {
         reader.readAsDataURL(input);
     });
 
-    // Razorpay Payment Integration for Premium Purchase
-    document.getElementById("buyPremium").addEventListener("click", function() {
-        var options = {
-            "key": "rzp_test_5XL0rkhnhFm6QX", // Replace with your Razorpay Key
-            "amount": "9", // Amount in paise (499 INR)
+    // Razorpay Payment for Premium Feature
+    document.getElementById("buyPremium").addEventListener("click", function () {
+        let options = {
+            "key": "YOUR_RAZORPAY_KEY", // Replace with your actual Razorpay Key
+            "amount": 49900, // Amount in paisa (₹499.00)
             "currency": "INR",
-            "name": "AI Tool Image",
-            "description": "Lifetime Premium Access",
+            "name": "Premium Access",
+            "description": "Unlock background removal",
             "handler": function (response) {
-                alert("Payment successful! Premium unlocked.");
-                localStorage.setItem("premium", "true");
+                alert("Payment Successful! Background Removal Unlocked!");
+                localStorage.setItem("premiumUser", "true");
                 document.getElementById("removeBgSection").style.display = "block";
-                document.getElementById("buyPremium").style.display = "none";
             },
-            "theme": { "color": "#3399cc" }
+            "prefill": {
+                "email": "user@example.com"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
         };
-        var rzp = new Razorpay(options);
-        rzp.open();
+        let rzp1 = new Razorpay(options);
+        rzp1.open();
     });
 
-    // Unlock Premium Feature if Purchased Before
-    if (localStorage.getItem("premium") === "true") {
+    // Check if user already purchased premium
+    if (localStorage.getItem("premiumUser") === "true") {
         document.getElementById("removeBgSection").style.display = "block";
-        document.getElementById("buyPremium").style.display = "none";
     }
 
     // Navigation Menu Functionality
