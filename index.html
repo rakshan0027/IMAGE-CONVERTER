@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
 
@@ -17,14 +18,12 @@
             <li><a href="#" onclick="showTool('pdfTool')">Image to PDF</a></li>
             <li><a href="#" onclick="showTool('pdfToImageTool')">PDF to Image</a></li>
             <li><a href="#" onclick="showTool('removeBgTool')">Remove Background</a></li>
-            <li><a href="#" onclick="showTool('ytDownloader')">YouTube to MP3/MP4</a></li>
             <li><a href="#" onclick="showTool('feedback')">Feedback</a></li>
             <li><a href="#" onclick="showTool('contact')">Contact Us</a></li>
         </ul>
     </nav>
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4625351312268360"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4625351312268360" crossorigin="anonymous"></script>
 
     <!-- Image Converter Section -->
     <div id="imageConverter" class="tool-section">
@@ -55,24 +54,15 @@
         <a id="downloadImageFromPDF" style="display:none;" class="download-btn">Download Image</a>
     </div>
 
-    <!-- Remove Background Section -->
+    <!-- Remove Background Section with Premium Feature -->
     <div id="removeBgTool" class="tool-section" style="display:none;">
         <h2>Remove Background</h2>
-        <input type="file" id="removeBgInput">
-        <button id="removeBackground">Remove Background</button>
-        <p id="bgRemovalMessage" style="color: red;">Free background removal isn't available yet!</p>
-    </div>
-
-    <!-- YouTube Video Downloader Section -->
-    <div id="ytDownloader" class="tool-section" style="display:none;">
-        <h2>YouTube Video Downloader</h2>
-        <input type="text" id="videoUrl" placeholder="Enter YouTube URL">
-        <select id="formatSelectYT">
-            <option value="mp4">MP4</option>
-            <option value="mp3">MP3</option>
-        </select>
-        <button id="downloadYT">Download</button>
-        <a id="ytDownloadLink" style="display:none;" class="download-btn">Download File</a>
+        <button id="buyPremiumBtn">BUY PREMIUM</button>
+        <div id="premiumFeatures" style="display:none;">
+            <input type="file" id="removeBgInput">
+            <button id="removeBackground">Remove Background</button>
+            <p id="bgRemovalMessage" style="color: green;">Premium background removal unlocked!</p>
+        </div>
     </div>
 
     <!-- Feedback Section -->
