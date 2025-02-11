@@ -30,8 +30,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // Razorpay Payment Integration for Premium Purchase
     document.getElementById("buyPremium").addEventListener("click", function() {
         var options = {
-            "key": "YOUR_RAZORPAY_KEY", // Replace with your Razorpay Key
-            "amount": "49900", // Amount in paise (499 INR)
+            "key": "rzp_test_5XL0rkhnhFm6QX", // Replace with your Razorpay Key
+            "amount": "9", // Amount in paise (499 INR)
             "currency": "INR",
             "name": "AI Tool Image",
             "description": "Lifetime Premium Access",
