@@ -11,7 +11,6 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
-    <!-- Navigation Menu -->
     <nav>
         <ul>
             <li><a href="#" onclick="showTool('aiSeoTools')">AI SEO Tools</a></li>
@@ -24,7 +23,6 @@
         </ul>
     </nav>
 
-    <!-- AI SEO Tools Section -->
     <div id="aiSeoTools" class="tool-section" style="display:none;">
         <h2>AI SEO Tools</h2>
         <ul>
@@ -38,55 +36,40 @@
         </ul>
     </div>
 
-    <!-- Other Tool Sections -->
-    <div id="imageConverter" class="tool-section" style="display:none;">
-        <h2>Convert Image</h2>
-        <input type="file" id="imageInput">
-        <select id="formatSelect">
-            <option value="png">PNG</option>
-            <option value="jpg">JPG</option>
-            <option value="webp">WebP</option>
-        </select>
-        <button id="convertBtn">Convert</button>
-        <a id="downloadLink" style="display:none;" class="download-btn">Download Converted Image</a>
+    <div id="seoScore" class="tool-section" style="display:none;">
+        <h2>SEO Score Analyzer</h2>
+        <input type="text" id="seoUrl" placeholder="Enter Website URL">
+        <button onclick="checkSeoScore()">Analyze</button>
+        <p id="seoResult"></p>
     </div>
 
-    <div id="pdfTool" class="tool-section" style="display:none;">
-        <h2>Convert Image to PDF</h2>
-        <input type="file" id="pdfImageInput">
-        <button id="convertToPDF">Convert to PDF</button>
-        <div id="pdfDownloadContainer"></div>
-    </div>
+    <script>
+        async function checkSeoScore() {
+            const apiKey = "AIzaSyDWxinDeRWZ9MM0A4i4sb3iLMBeXDb6dik"; // Replace with your API Key
+            let url = document.getElementById("seoUrl").value;
 
-    <div id="pdfToImageTool" class="tool-section" style="display:none;">
-        <h2>Convert PDF to Image</h2>
-        <input type="file" id="pdfInput">
-        <button id="convertFromPDF">Convert PDF to Image</button>
-        <a id="downloadImageFromPDF" style="display:none;" class="download-btn">Download Image</a>
-    </div>
+            if (!url) {
+                alert("Please enter a valid website URL.");
+                return;
+            }
 
-    <div id="removeBgTool" class="tool-section" style="display:none;">
-        <h2>Remove Background</h2>
-        <input type="file" id="removeBgInput">
-        <button id="removeBackground" disabled>Remove Background</button>
-        <p id="bgRemovalMessage" style="color: red;">Premium users only!</p>
-        <button id="buyPremium">Buy Premium - ₹9</button>
-    </div>
+            const apiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&key=${apiKey}`;
 
-    <!-- Feedback Section -->
-    <div id="feedback" class="tool-section" style="display:none;">
-        <h2>Feedback</h2>
-        <textarea placeholder="Write your feedback..."></textarea>
-        <button id="submitFeedback">Submit</button>
-    </div>
+            try {
+                let response = await fetch(apiUrl);
+                let data = await response.json();
 
-    <!-- Contact Us Section -->
-    <div id="contact" class="tool-section" style="display:none;">
-        <h2>Contact Us</h2>
-        <p>Email: shivohumcreation@gmail.com</p>
-        <p>Phone: +91 9696866194</p>
-    </div>
-
-    <script src="script.js"></script>
+                if (data.lighthouseResult) {
+                    let score = data.lighthouseResult.categories.seo.score * 100;
+                    document.getElementById("seoResult").innerHTML = `SEO Score: <strong>${score}</strong>/100`;
+                } else {
+                    document.getElementById("seoResult").innerHTML = "Error fetching SEO score.";
+                }
+            } catch (error) {
+                console.error("Error fetching SEO Score:", error);
+                document.getElementById("seoResult").innerHTML = "Failed to fetch SEO score.";
+            }
+        }
+    </script>
 </body>
 </html>
