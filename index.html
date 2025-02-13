@@ -11,10 +11,10 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
+    <!-- Navigation Menu -->
     <nav>
         <ul>
             <li><a href="#" onclick="showTool('aiSeoTools')">AI SEO Tools</a></li>
-            <li><a href="#" onclick="showTool('pageSpeed')">PageSpeed Insights</a></li>
             <li><a href="#" onclick="showTool('imageConverter')">Convert Image</a></li>
             <li><a href="#" onclick="showTool('pdfTool')">Image to PDF</a></li>
             <li><a href="#" onclick="showTool('pdfToImageTool')">PDF to Image</a></li>
@@ -24,20 +24,22 @@
         </ul>
     </nav>
 
+    <!-- AI SEO Tools Section -->
     <div id="aiSeoTools" class="tool-section" style="display:none;">
         <h2>AI SEO Tools</h2>
         <ul>
+            <li><a href="#" onclick="showTool('keywordResearch')">AI-Powered Keyword Research</a></li>
             <li><a href="#" onclick="showTool('seoScore')">SEO Score Analyzer</a></li>
+            <li><a href="#" onclick="showTool('metaTagGenerator')">Meta Tag & Description Generator</a></li>
+            <li><a href="#" onclick="showTool('contentOptimizer')">AI Content Optimization</a></li>
+            <li><a href="#" onclick="showTool('backlinkChecker')">Backlink Checker</a></li>
+            <li><a href="#" onclick="showTool('plagiarismChecker')">Plagiarism Checker</a></li>
+            <li><a href="#" onclick="showTool('aiWriter')">Content Paraphraser & AI Writer</a></li>
+            <li><a href="#" onclick="showTool('pagespeedInsights')">Google PageSpeed Insights (Simulated)</a></li>
         </ul>
     </div>
 
-    <div id="pageSpeed" class="tool-section" style="display:none;">
-        <h2>Google PageSpeed Insights</h2>
-        <input type="text" id="websiteUrl" placeholder="Enter website URL">
-        <button onclick="analyzePageSpeed()">Analyze</button>
-        <div id="result"></div>
-    </div>
-
+    <!-- Other Tool Sections -->
     <div id="imageConverter" class="tool-section" style="display:none;">
         <h2>Convert Image</h2>
         <input type="file" id="imageInput">
@@ -47,7 +49,7 @@
             <option value="webp">WebP</option>
         </select>
         <button id="convertBtn">Convert</button>
-        <a id="downloadLink" style="display:none;" class="download-btn">Download</a>
+        <a id="downloadLink" style="display:none;" class="download-btn">Download Converted Image</a>
     </div>
 
     <div id="pdfTool" class="tool-section" style="display:none;">
@@ -72,12 +74,14 @@
         <button id="buyPremium">Buy Premium - ₹9</button>
     </div>
 
+    <!-- Feedback Section -->
     <div id="feedback" class="tool-section" style="display:none;">
         <h2>Feedback</h2>
         <textarea placeholder="Write your feedback..."></textarea>
         <button id="submitFeedback">Submit</button>
     </div>
 
+    <!-- Contact Us Section -->
     <div id="contact" class="tool-section" style="display:none;">
         <h2>Contact Us</h2>
         <p>Email: shivohumcreation@gmail.com</p>
@@ -85,39 +89,5 @@
     </div>
 
     <script src="script.js"></script>
-    <script>
-        function showTool(toolId) {
-            document.querySelectorAll('.tool-section').forEach(section => {
-                section.style.display = 'none';
-            });
-            document.getElementById(toolId).style.display = 'block';
-        }
-
-        async function analyzePageSpeed() {
-            const apiKey = "AIzaSyDWxinDeRWZ9MM0A4i4sb3iLMBeXDb6dik";
-            const url = document.getElementById("websiteUrl").value;
-            if (!url) {
-                alert("Please enter a website URL.");
-                return;
-            }
-
-            const apiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&key=${apiKey}`;
-            try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-                
-                if (data.lighthouseResult) {
-                    document.getElementById("result").innerHTML = `
-                        <h3>PageSpeed Score: ${data.lighthouseResult.categories.performance.score * 100}</h3>
-                    `;
-                } else {
-                    document.getElementById("result").innerHTML = `<p>Error fetching data.</p>`;
-                }
-            } catch (error) {
-                console.error("Error fetching PageSpeed data:", error);
-                document.getElementById("result").innerHTML = `<p>API request failed.</p>`;
-            }
-        }
-    </script>
 </body>
 </html>
