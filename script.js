@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    
     // 🖼️ Convert Image to PDF
     document.getElementById("convertToPDF").addEventListener("click", function () {
         let input = document.getElementById("pdfImageInput").files[0];
@@ -60,54 +61,27 @@ document.addEventListener("DOMContentLoaded", function () {
         reader.readAsArrayBuffer(file);
     });
 
-    // 🚀 AI SEO Tools - Simulated Functionality
-    document.querySelectorAll(".seo-tool-btn").forEach(button => {
-        button.addEventListener("click", function () {
-            let toolType = this.dataset.tool;
-            let inputText = document.getElementById("seoInput").value;
-            let resultContainer = document.getElementById("seoResult");
-            if (!inputText) {
-                alert("Please enter text to analyze.");
-                return;
-            }
-            resultContainer.innerHTML = "Processing...";
-            setTimeout(() => {
-                let output = "";
-                switch (toolType) {
-                    case "keywordResearch":
-                        output = "Suggested Keywords: AI tools, SEO analysis, digital marketing";
-                        break;
-                    case "seoScore":
-                        output = "SEO Score: " + Math.floor(Math.random() * 100) + "/100";
-                        break;
-                    case "metaTagGenerator":
-                        output = "Meta Tags: <meta name='description' content='Best AI SEO tools for optimization'>";
-                        break;
-                    case "contentOptimizer":
-                        output = "Optimization Tip: Use keywords naturally in headings and body text.";
-                        break;
-                    case "backlinkChecker":
-                        output = "Backlinks Found: 23 from high-authority domains.";
-                        break;
-                    case "plagiarismChecker":
-                        output = "Plagiarism Check: 89% unique content.";
-                        break;
-                    case "aiWriter":
-                        output = "Rewritten Content: AI-generated SEO-friendly text.";
-                        break;
-                    default:
-                        output = "Tool not found.";
-                }
-                resultContainer.innerHTML = `Result for ${toolType}: ${output}`;
-            }, 2000);
-        });
+    // 🚀 Google PageSpeed Insights API Integration
+    document.getElementById("checkPageSpeed").addEventListener("click", function () {
+        let url = document.getElementById("pageSpeedInput").value.trim();
+        if (!url) {
+            alert("Please enter a valid URL.");
+            return;
+        }
+        fetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&key=AIzaSyDWxinDeRWZ9MM0A4i4sb3iLMBeXDb6dik`)
+            .then(response => response.json())
+            .then(data => {
+                let score = data.lighthouseResult.categories.performance.score * 100;
+                document.getElementById("pageSpeedResult").innerText = `Performance Score: ${score}/100`;
+            })
+            .catch(error => console.error("Error fetching PageSpeed data:", error));
     });
 
     // 🚀 Buy Premium Feature (Unlock Background Removal)
     document.getElementById("buyPremium").addEventListener("click", function () {
         var options = {
             key: "rzp_test_5XL0rkhnhFm6QX",
-            amount: 9,
+            amount: 900,
             currency: "INR",
             name: "Premium Access",
             description: "Unlock Background Removal",
