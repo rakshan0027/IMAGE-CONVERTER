@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Processing Tools</title>
+    <title>AI Tools & Image Processing</title>
     <link rel="stylesheet" href="style.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4625351312268360" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -34,23 +34,23 @@
             <option value="webp">WebP</option>
         </select>
         <button id="convertBtn">Convert</button>
-        <a id="downloadLink" style="display:none;" class="download-btn">Download Converted Image</a>
+        <a id="downloadLink" style="display:none;" class="download-btn">Download</a>
     </div>
 
     <!-- Image to PDF -->
     <div id="pdfTool" class="tool-section" style="display:none;">
         <h2>Convert Image to PDF</h2>
         <input type="file" id="pdfImageInput">
-        <button id="convertToPDF">Convert to PDF</button>
-        <div id="pdfDownloadContainer"></div>
+        <button id="convertToPDF">Convert</button>
+        <a id="pdfDownload" style="display:none;" class="download-btn">Download</a>
     </div>
 
     <!-- PDF to Image -->
     <div id="pdfToImageTool" class="tool-section" style="display:none;">
         <h2>Convert PDF to Image</h2>
         <input type="file" id="pdfInput">
-        <button id="convertFromPDF">Convert PDF to Image</button>
-        <a id="downloadImageFromPDF" style="display:none;" class="download-btn">Download Image</a>
+        <button id="convertFromPDF">Convert</button>
+        <a id="downloadImageFromPDF" style="display:none;" class="download-btn">Download</a>
     </div>
 
     <!-- Remove Background -->
@@ -62,14 +62,13 @@
         <button id="buyPremium">Buy Premium - ₹9</button>
     </div>
 
-    <!-- MP4 to MP3 Tool Section -->
+    <!-- MP4 to MP3 Tool -->
     <div id="mp4ToMp3Tool" class="tool-section" style="display:none;">
         <h2>Convert MP4 to MP3</h2>
         <label for="mp4Input">Upload MP4 File:</label>
         <input type="file" id="mp4Input" accept="video/mp4">
         <button id="convertMp4ToMp3">Convert</button>
-        <br>
-        <p id="mp4ToMp3Message" style="color: red;">Note: This feature requires server-side processing.</p>
+        <a id="mp3Download" style="display:none;" class="download-btn">Download</a>
     </div>
 
     <!-- Feedback Section -->
