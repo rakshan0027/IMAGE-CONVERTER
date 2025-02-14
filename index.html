@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Tools & Image Processing</title>
+    <title>Image Processing Tools</title>
     <link rel="stylesheet" href="style.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4625351312268360" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -14,7 +14,6 @@
     <!-- Navigation Menu -->
     <nav>
         <ul>
-            <li><a href="#" onclick="showTool('aiSeoTools')">AI SEO Tools</a></li>
             <li><a href="#" onclick="showTool('imageConverter')">Convert Image</a></li>
             <li><a href="#" onclick="showTool('pdfTool')">Image to PDF</a></li>
             <li><a href="#" onclick="showTool('pdfToImageTool')">PDF to Image</a></li>
@@ -24,21 +23,6 @@
             <li><a href="#" onclick="showTool('contact')">Contact Us</a></li>
         </ul>
     </nav>
-
-    <!-- AI SEO Tools Section -->
-    <div id="aiSeoTools" class="tool-section" style="display:none;">
-        <h2>AI SEO Tools</h2>
-        <ul>
-            <li><a href="#" onclick="showTool('keywordResearch')">AI-Powered Keyword Research</a></li>
-            <li><a href="#" onclick="showTool('seoScore')">SEO Score Analyzer</a></li>
-            <li><a href="#" onclick="showTool('metaTagGenerator')">Meta Tag & Description Generator</a></li>
-            <li><a href="#" onclick="showTool('contentOptimizer')">AI Content Optimization</a></li>
-            <li><a href="#" onclick="showTool('backlinkChecker')">Backlink Checker</a></li>
-            <li><a href="#" onclick="showTool('plagiarismChecker')">Plagiarism Checker</a></li>
-            <li><a href="#" onclick="showTool('aiWriter')">Content Paraphraser & AI Writer</a></li>
-            <li><a href="#" onclick="showTool('pagespeedInsights')">Google PageSpeed Insights (Simulated)</a></li>
-        </ul>
-    </div>
 
     <!-- Image Converter -->
     <div id="imageConverter" class="tool-section" style="display:none;">
@@ -85,10 +69,7 @@
         <input type="file" id="mp4Input" accept="video/mp4">
         <button id="convertMp4ToMp3">Convert</button>
         <br>
-        <label for="mp4Url">Or Enter Video URL:</label>
-        <input type="text" id="mp4Url" placeholder="Paste video URL here">
-        <button id="convertUrlToMp3">Convert</button>
-        <div id="mp3DownloadContainer"></div>
+        <p id="mp4ToMp3Message" style="color: red;">Note: This feature requires server-side processing.</p>
     </div>
 
     <!-- Feedback Section -->
