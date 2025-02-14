@@ -19,6 +19,7 @@
             <li><a href="#" onclick="showTool('pdfTool')">Image to PDF</a></li>
             <li><a href="#" onclick="showTool('pdfToImageTool')">PDF to Image</a></li>
             <li><a href="#" onclick="showTool('removeBgTool')">Remove Background</a></li>
+            <li><a href="#" onclick="showTool('mp4ToMp3Tool')">MP4 to MP3</a></li>
             <li><a href="#" onclick="showTool('feedback')">Feedback</a></li>
             <li><a href="#" onclick="showTool('contact')">Contact Us</a></li>
         </ul>
@@ -39,7 +40,7 @@
         </ul>
     </div>
 
-    <!-- Other Tool Sections -->
+    <!-- Image Converter -->
     <div id="imageConverter" class="tool-section" style="display:none;">
         <h2>Convert Image</h2>
         <input type="file" id="imageInput">
@@ -52,6 +53,7 @@
         <a id="downloadLink" style="display:none;" class="download-btn">Download Converted Image</a>
     </div>
 
+    <!-- Image to PDF -->
     <div id="pdfTool" class="tool-section" style="display:none;">
         <h2>Convert Image to PDF</h2>
         <input type="file" id="pdfImageInput">
@@ -59,6 +61,7 @@
         <div id="pdfDownloadContainer"></div>
     </div>
 
+    <!-- PDF to Image -->
     <div id="pdfToImageTool" class="tool-section" style="display:none;">
         <h2>Convert PDF to Image</h2>
         <input type="file" id="pdfInput">
@@ -66,12 +69,26 @@
         <a id="downloadImageFromPDF" style="display:none;" class="download-btn">Download Image</a>
     </div>
 
+    <!-- Remove Background -->
     <div id="removeBgTool" class="tool-section" style="display:none;">
         <h2>Remove Background</h2>
         <input type="file" id="removeBgInput">
         <button id="removeBackground" disabled>Remove Background</button>
         <p id="bgRemovalMessage" style="color: red;">Premium users only!</p>
         <button id="buyPremium">Buy Premium - ₹9</button>
+    </div>
+
+    <!-- MP4 to MP3 Tool Section -->
+    <div id="mp4ToMp3Tool" class="tool-section" style="display:none;">
+        <h2>Convert MP4 to MP3</h2>
+        <label for="mp4Input">Upload MP4 File:</label>
+        <input type="file" id="mp4Input" accept="video/mp4">
+        <button id="convertMp4ToMp3">Convert</button>
+        <br>
+        <label for="mp4Url">Or Enter Video URL:</label>
+        <input type="text" id="mp4Url" placeholder="Paste video URL here">
+        <button id="convertUrlToMp3">Convert</button>
+        <div id="mp3DownloadContainer"></div>
     </div>
 
     <!-- Feedback Section -->
