@@ -1,90 +1,105 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Tools & Image Processing</title>
-    <link rel="stylesheet" href="style.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4625351312268360" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-</head>
-<body>
-    <!-- Navigation Menu -->
-    <nav>
-        <ul>
-            <li><a href="#" onclick="showTool('imageConverter')">Convert Image</a></li>
-            <li><a href="#" onclick="showTool('pdfTool')">Image to PDF</a></li>
-            <li><a href="#" onclick="showTool('pdfToImageTool')">PDF to Image</a></li>
-            <li><a href="#" onclick="showTool('removeBgTool')">Remove Background</a></li>
-            <li><a href="#" onclick="showTool('mp4ToMp3Tool')">MP4 to MP3</a></li>
-            <li><a href="#" onclick="showTool('feedback')">Feedback</a></li>
-            <li><a href="#" onclick="showTool('contact')">Contact Us</a></li>
-        </ul>
-    </nav>
-
-    <!-- Image Converter -->
-    <div id="imageConverter" class="tool-section" style="display:none;">
-        <h2>Convert Image</h2>
-        <input type="file" id="imageInput">
-        <select id="formatSelect">
-            <option value="png">PNG</option>
-            <option value="jpg">JPG</option>
-            <option value="webp">WebP</option>
-        </select>
-        <button id="convertBtn">Convert</button>
-        <a id="downloadLink" style="display:none;" class="download-btn">Download</a>
-    </div>
-
-    <!-- Image to PDF -->
-    <div id="pdfTool" class="tool-section" style="display:none;">
-        <h2>Convert Image to PDF</h2>
-        <input type="file" id="pdfImageInput">
-        <button id="convertToPDF">Convert</button>
-        <a id="pdfDownload" style="display:none;" class="download-btn">Download</a>
-    </div>
-
-    <!-- PDF to Image -->
-    <div id="pdfToImageTool" class="tool-section" style="display:none;">
-        <h2>Convert PDF to Image</h2>
-        <input type="file" id="pdfInput">
-        <button id="convertFromPDF">Convert</button>
-        <a id="downloadImageFromPDF" style="display:none;" class="download-btn">Download</a>
-    </div>
-
-    <!-- Remove Background -->
-    <div id="removeBgTool" class="tool-section" style="display:none;">
-        <h2>Remove Background</h2>
-        <input type="file" id="removeBgInput">
-        <button id="removeBackground" disabled>Remove Background</button>
-        <p id="bgRemovalMessage" style="color: red;">Premium users only!</p>
-        <button id="buyPremium">Buy Premium - ₹9</button>
-    </div>
-
-    <!-- MP4 to MP3 Tool -->
-    <div id="mp4ToMp3Tool" class="tool-section" style="display:none;">
-        <h2>Convert MP4 to MP3</h2>
-        <label for="mp4Input">Upload MP4 File:</label>
-        <input type="file" id="mp4Input" accept="video/mp4">
-        <button id="convertMp4ToMp3">Convert</button>
-        <a id="mp3Download" style="display:none;" class="download-btn">Download</a>
-    </div>
-
-    <!-- Feedback Section -->
-    <div id="feedback" class="tool-section" style="display:none;">
-        <h2>Feedback</h2>
-        <textarea placeholder="Write your feedback..."></textarea>
-        <button id="submitFeedback">Submit</button>
-    </div>
-
-    <!-- Contact Us Section -->
-    <div id="contact" class="tool-section" style="display:none;">
-        <h2>Contact Us</h2>
-        <p>Email: shivohumcreation@gmail.com</p>
-        <p>Phone: +91 9696866194</p>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+document.addEventListener("DOMContentLoaded", function () {
+    function showTool(toolId) {
+        document.querySelectorAll(".tool-section").forEach(section => {
+            section.style.display = "none";
+        });
+        document.getElementById(toolId).style.display = "block";
+    }
+    
+    document.getElementById("convertBtn").addEventListener("click", function () {
+        const fileInput = document.getElementById("imageInput").files[0];
+        const format = document.getElementById("formatSelect").value;
+        if (!fileInput) {
+            alert("Please select an image file.");
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const img = new Image();
+            img.onload = function () {
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d");
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+                
+                const convertedImage = canvas.toDataURL("image/" + format);
+                const downloadLink = document.getElementById("downloadLink");
+                downloadLink.href = convertedImage;
+                downloadLink.download = "converted-image." + format;
+                downloadLink.style.display = "block";
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(fileInput);
+    });
+    
+    document.getElementById("convertToPDF").addEventListener("click", function () {
+        const fileInput = document.getElementById("pdfImageInput").files[0];
+        if (!fileInput) {
+            alert("Please select an image file.");
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const img = new Image();
+            img.onload = function () {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                doc.addImage(img, "JPEG", 10, 10, 180, 160);
+                const pdfDownloadContainer = document.getElementById("pdfDownloadContainer");
+                const pdfBlob = doc.output("bloburl");
+                pdfDownloadContainer.innerHTML = `<a href="${pdfBlob}" download="converted.pdf" class="download-btn">Download PDF</a>`;
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(fileInput);
+    });
+    
+    document.getElementById("convertFromPDF").addEventListener("click", function () {
+        alert("PDF to Image conversion will be implemented soon!");
+    });
+    
+    document.getElementById("removeBackground").addEventListener("click", function () {
+        alert("Background removal is available for premium users only.");
+    });
+    
+    document.getElementById("buyPremium").addEventListener("click", function () {
+        alert("Redirecting to payment gateway...");
+    });
+    
+    document.getElementById("submitFeedback").addEventListener("click", function () {
+        alert("Thank you for your feedback!");
+    });
+    
+    document.getElementById("convertMp4ToMp3").addEventListener("click", function () {
+        const fileInput = document.getElementById("mp4Input").files[0];
+        if (!fileInput) {
+            alert("Please select an MP4 file.");
+            return;
+        }
+        
+        const formData = new FormData();
+        formData.append("video", fileInput);
+        
+        fetch("https://your-backend-url.onrender.com/convert-mp4-to-mp3", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.downloadUrl) {
+                const downloadMp3 = document.getElementById("downloadMp3");
+                downloadMp3.href = data.downloadUrl;
+                downloadMp3.style.display = "block";
+            } else {
+                alert("Conversion failed. Try again.");
+            }
+        })
+        .catch(error => {
+            alert("Error: " + error.message);
+        });
+    });
+});
