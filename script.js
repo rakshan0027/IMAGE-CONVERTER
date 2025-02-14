@@ -67,25 +67,27 @@ document.addEventListener("DOMContentLoaded", function () {
         
         const reader = new FileReader();
         reader.onload = function (event) {
-            const pdfData = new Uint8Array(event.target.result);
-            pdfjsLib.getDocument({ data: pdfData }).promise.then(pdf => {
+            const loadingTask = pdfjsLib.getDocument({ data: event.target.result });
+            loadingTask.promise.then(pdf => {
                 pdf.getPage(1).then(page => {
-                    const scale = 2;
-                    const viewport = page.getViewport({ scale: scale });
+                    const scale = 1.5;
+                    const viewport = page.getViewport({ scale });
                     const canvas = document.createElement("canvas");
-                    const ctx = canvas.getContext("2d");
+                    const context = canvas.getContext("2d");
                     canvas.width = viewport.width;
                     canvas.height = viewport.height;
-                    page.render({ canvasContext: ctx, viewport: viewport }).promise.then(() => {
-                        const convertedImage = canvas.toDataURL("image/png");
+                    
+                    const renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+                    page.render(renderContext).promise.then(() => {
                         const downloadLink = document.getElementById("downloadImageFromPDF");
-                        downloadLink.href = convertedImage;
+                        downloadLink.href = canvas.toDataURL("image/png");
                         downloadLink.download = "converted-image.png";
                         downloadLink.style.display = "block";
                     });
                 });
-            }).catch(error => {
-                alert("Failed to convert PDF to image.");
             });
         };
         reader.readAsArrayBuffer(fileInput);
@@ -115,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
         fetch("https://your-backend-url.onrender.com/convert-mp4-to-mp3", {
             method: "POST",
-            body: formData,
+            body: formData
         })
         .then(response => response.json())
         .then(data => {
@@ -124,9 +126,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 downloadLink.href = data.downloadUrl;
                 downloadLink.style.display = "block";
             } else {
-                alert("Conversion failed.");
+                alert("Conversion failed. Please try again.");
             }
         })
-        .catch(() => alert("Error converting MP4 to MP3."));
+        .catch(error => {
+            console.error("Error:", error);
+            alert("An error occurred while converting.");
+        });
     });
 });
