@@ -64,31 +64,28 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("Please select a PDF file.");
             return;
         }
-
+        
         const reader = new FileReader();
-        reader.onload = function () {
-            const loadingTask = pdfjsLib.getDocument({ data: reader.result });
-            loadingTask.promise.then(pdf => {
+        reader.onload = function (event) {
+            const pdfData = new Uint8Array(event.target.result);
+            pdfjsLib.getDocument({ data: pdfData }).promise.then(pdf => {
                 pdf.getPage(1).then(page => {
                     const scale = 2;
-                    const viewport = page.getViewport({ scale });
+                    const viewport = page.getViewport({ scale: scale });
                     const canvas = document.createElement("canvas");
                     const ctx = canvas.getContext("2d");
                     canvas.width = viewport.width;
                     canvas.height = viewport.height;
-                    
-                    const renderContext = {
-                        canvasContext: ctx,
-                        viewport: viewport
-                    };
-                    page.render(renderContext).promise.then(() => {
-                        const imgUrl = canvas.toDataURL("image/png");
+                    page.render({ canvasContext: ctx, viewport: viewport }).promise.then(() => {
+                        const convertedImage = canvas.toDataURL("image/png");
                         const downloadLink = document.getElementById("downloadImageFromPDF");
-                        downloadLink.href = imgUrl;
+                        downloadLink.href = convertedImage;
                         downloadLink.download = "converted-image.png";
                         downloadLink.style.display = "block";
                     });
                 });
+            }).catch(error => {
+                alert("Failed to convert PDF to image.");
             });
         };
         reader.readAsArrayBuffer(fileInput);
@@ -104,5 +101,32 @@ document.addEventListener("DOMContentLoaded", function () {
     
     document.getElementById("submitFeedback").addEventListener("click", function () {
         alert("Thank you for your feedback!");
+    });
+    
+    document.getElementById("convertMp4ToMp3").addEventListener("click", function () {
+        const fileInput = document.getElementById("mp4Input").files[0];
+        if (!fileInput) {
+            alert("Please select an MP4 file.");
+            return;
+        }
+        
+        const formData = new FormData();
+        formData.append("video", fileInput);
+        
+        fetch("https://your-backend-url.onrender.com/convert-mp4-to-mp3", {
+            method: "POST",
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.downloadUrl) {
+                const downloadLink = document.getElementById("downloadMp3");
+                downloadLink.href = data.downloadUrl;
+                downloadLink.style.display = "block";
+            } else {
+                alert("Conversion failed.");
+            }
+        })
+        .catch(() => alert("Error converting MP4 to MP3."));
     });
 });
