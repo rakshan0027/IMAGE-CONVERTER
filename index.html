@@ -1,105 +1,62 @@
-document.addEventListener("DOMContentLoaded", function () {
-    function showTool(toolId) {
-        document.querySelectorAll(".tool-section").forEach(section => {
-            section.style.display = "none";
-        });
-        document.getElementById(toolId).style.display = "block";
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tool Image Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>AI Tool Image Converter</h1>
+        <nav>
+            <ul>
+                <li><a href="#imageConverter">Image Converter</a></li>
+                <li><a href="#pdfConverter">PDF Converter</a></li>
+                <li><a href="#removeBG">Remove Background</a></li>
+                <li><a href="#mp4ToMp3">MP4 to MP3</a></li>
+            </ul>
+        </nav>
+    </header>
     
-    document.getElementById("convertBtn").addEventListener("click", function () {
-        const fileInput = document.getElementById("imageInput").files[0];
-        const format = document.getElementById("formatSelect").value;
-        if (!fileInput) {
-            alert("Please select an image file.");
-            return;
-        }
+    <main>
+        <section id="imageConverter" class="tool-section">
+            <h2>Image Converter</h2>
+            <input type="file" id="imageInput">
+            <select id="formatSelect">
+                <option value="png">PNG</option>
+                <option value="jpeg">JPEG</option>
+                <option value="webp">WEBP</option>
+            </select>
+            <button id="convertBtn">Convert</button>
+            <a id="downloadLink" class="download-btn" style="display:none;">Download Converted Image</a>
+        </section>
         
-        const reader = new FileReader();
-        reader.onload = function (event) {
-            const img = new Image();
-            img.onload = function () {
-                const canvas = document.createElement("canvas");
-                const ctx = canvas.getContext("2d");
-                canvas.width = img.width;
-                canvas.height = img.height;
-                ctx.drawImage(img, 0, 0);
-                
-                const convertedImage = canvas.toDataURL("image/" + format);
-                const downloadLink = document.getElementById("downloadLink");
-                downloadLink.href = convertedImage;
-                downloadLink.download = "converted-image." + format;
-                downloadLink.style.display = "block";
-            };
-            img.src = event.target.result;
-        };
-        reader.readAsDataURL(fileInput);
-    });
-    
-    document.getElementById("convertToPDF").addEventListener("click", function () {
-        const fileInput = document.getElementById("pdfImageInput").files[0];
-        if (!fileInput) {
-            alert("Please select an image file.");
-            return;
-        }
+        <section id="pdfConverter" class="tool-section">
+            <h2>PDF Converter</h2>
+            <input type="file" id="pdfImageInput">
+            <button id="convertToPDF">Convert to PDF</button>
+            <div id="pdfDownloadContainer"></div>
+        </section>
         
-        const reader = new FileReader();
-        reader.onload = function (event) {
-            const img = new Image();
-            img.onload = function () {
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-                doc.addImage(img, "JPEG", 10, 10, 180, 160);
-                const pdfDownloadContainer = document.getElementById("pdfDownloadContainer");
-                const pdfBlob = doc.output("bloburl");
-                pdfDownloadContainer.innerHTML = `<a href="${pdfBlob}" download="converted.pdf" class="download-btn">Download PDF</a>`;
-            };
-            img.src = event.target.result;
-        };
-        reader.readAsDataURL(fileInput);
-    });
-    
-    document.getElementById("convertFromPDF").addEventListener("click", function () {
-        alert("PDF to Image conversion will be implemented soon!");
-    });
-    
-    document.getElementById("removeBackground").addEventListener("click", function () {
-        alert("Background removal is available for premium users only.");
-    });
-    
-    document.getElementById("buyPremium").addEventListener("click", function () {
-        alert("Redirecting to payment gateway...");
-    });
-    
-    document.getElementById("submitFeedback").addEventListener("click", function () {
-        alert("Thank you for your feedback!");
-    });
-    
-    document.getElementById("convertMp4ToMp3").addEventListener("click", function () {
-        const fileInput = document.getElementById("mp4Input").files[0];
-        if (!fileInput) {
-            alert("Please select an MP4 file.");
-            return;
-        }
+        <section id="removeBG" class="tool-section">
+            <h2>Remove Background</h2>
+            <button id="removeBackground">Remove Background</button>
+            <button id="buyPremium">Buy Premium</button>
+        </section>
         
-        const formData = new FormData();
-        formData.append("video", fileInput);
-        
-        fetch("https://your-backend-url.onrender.com/convert-mp4-to-mp3", {
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.downloadUrl) {
-                const downloadMp3 = document.getElementById("downloadMp3");
-                downloadMp3.href = data.downloadUrl;
-                downloadMp3.style.display = "block";
-            } else {
-                alert("Conversion failed. Try again.");
-            }
-        })
-        .catch(error => {
-            alert("Error: " + error.message);
-        });
-    });
-});
+        <section id="mp4ToMp3" class="tool-section">
+            <h2>MP4 to MP3 Converter</h2>
+            <input type="file" id="mp4Input" accept="video/mp4">
+            <button id="convertMp4ToMp3">Convert</button>
+            <a id="mp3DownloadLink" class="download-btn" style="display:none;">Download MP3</a>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 AI Tool Image Converter</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
