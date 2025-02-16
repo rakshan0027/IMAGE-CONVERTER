@@ -1,137 +1,77 @@
-document.addEventListener("DOMContentLoaded", function () {
-    function showTool(toolId) {
-        document.querySelectorAll(".tool-section").forEach(section => {
-            section.style.display = "none";
-        });
-        document.getElementById(toolId).style.display = "block";
-    }
+document.addEventListener("DOMContentLoaded", () => {
+    let freeTrialsLeft = 5;
+
+    // Image Conversion
+    const imageInput = document.getElementById("imageInput");
+    const formatSelect = document.getElementById("formatSelect");
+    const convertBtn = document.getElementById("convertBtn");
+    const downloadLink = document.getElementById("downloadLink");
+    const progressBar = document.getElementById("progressBar");
     
-    document.getElementById("convertBtn").addEventListener("click", function () {
-        const fileInput = document.getElementById("imageInput").files[0];
-        const format = document.getElementById("formatSelect").value;
-        if (!fileInput) {
-            alert("Please select an image file.");
-            return;
-        }
+    convertBtn.addEventListener("click", async () => {
+        const file = imageInput.files[0];
+        if (!file) return alert("Please select an image!");
         
         const reader = new FileReader();
-        reader.onload = function (event) {
+        reader.readAsDataURL(file);
+        reader.onload = () => {
             const img = new Image();
-            img.onload = function () {
+            img.src = reader.result;
+            img.onload = () => {
                 const canvas = document.createElement("canvas");
                 const ctx = canvas.getContext("2d");
                 canvas.width = img.width;
                 canvas.height = img.height;
                 ctx.drawImage(img, 0, 0);
                 
-                const convertedImage = canvas.toDataURL("image/" + format);
-                const downloadLink = document.getElementById("downloadLink");
+                let convertedImage;
+                if (formatSelect.value === "png") {
+                    convertedImage = canvas.toDataURL("image/png");
+                } else if (formatSelect.value === "jpg") {
+                    convertedImage = canvas.toDataURL("image/jpeg");
+                } else if (formatSelect.value === "webp") {
+                    convertedImage = canvas.toDataURL("image/webp");
+                }
+                
+                const a = document.createElement("a");
+                a.href = convertedImage;
+                a.download = `converted.${formatSelect.value}`;
+                a.style.display = "none";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                
                 downloadLink.href = convertedImage;
-                downloadLink.download = "converted-image." + format;
                 downloadLink.style.display = "block";
             };
-            img.src = event.target.result;
         };
-        reader.readAsDataURL(fileInput);
     });
     
-    document.getElementById("convertToPDF").addEventListener("click", function () {
-        const fileInput = document.getElementById("pdfImageInput").files[0];
-        if (!fileInput) {
-            alert("Please select an image file.");
-            return;
-        }
+    // PDF Converter
+    document.getElementById("convertToPDF").addEventListener("click", () => {
+        const pdfImageInput = document.getElementById("pdfImageInput").files[0];
+        if (!pdfImageInput) return alert("Please select an image to convert to PDF");
         
         const reader = new FileReader();
-        reader.onload = function (event) {
-            const img = new Image();
-            img.onload = function () {
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-                doc.addImage(img, "JPEG", 10, 10, 180, 160);
-                const pdfDownloadContainer = document.getElementById("pdfDownloadContainer");
-                const pdfBlob = doc.output("bloburl");
-                pdfDownloadContainer.innerHTML = `<a href="${pdfBlob}" download="converted.pdf" class="download-btn">Download PDF</a>`;
-            };
-            img.src = event.target.result;
+        reader.readAsDataURL(pdfImageInput);
+        reader.onload = () => {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF();
+            pdf.addImage(reader.result, "JPEG", 10, 10, 180, 160);
+            pdf.save("converted.pdf");
         };
-        reader.readAsDataURL(fileInput);
     });
     
-    document.getElementById("convertFromPDF").addEventListener("click", function () {
-        const fileInput = document.getElementById("pdfInput").files[0];
-        if (!fileInput) {
-            alert("Please select a PDF file.");
-            return;
+    // Background Removal with Free Trials
+    document.getElementById("removeBackground").addEventListener("click", () => {
+        if (freeTrialsLeft > 0) {
+            freeTrialsLeft--;
+            alert(`Background removed! You have ${freeTrialsLeft} free trials left.`);
+        } else {
+            alert("Your free trials are over. Please buy premium to continue.");
         }
-        
-        const reader = new FileReader();
-        reader.onload = function (event) {
-            const loadingTask = pdfjsLib.getDocument({ data: event.target.result });
-            loadingTask.promise.then(pdf => {
-                pdf.getPage(1).then(page => {
-                    const scale = 1.5;
-                    const viewport = page.getViewport({ scale });
-                    const canvas = document.createElement("canvas");
-                    const context = canvas.getContext("2d");
-                    canvas.width = viewport.width;
-                    canvas.height = viewport.height;
-                    
-                    const renderContext = {
-                        canvasContext: context,
-                        viewport: viewport
-                    };
-                    page.render(renderContext).promise.then(() => {
-                        const downloadLink = document.getElementById("downloadImageFromPDF");
-                        downloadLink.href = canvas.toDataURL("image/png");
-                        downloadLink.download = "converted-image.png";
-                        downloadLink.style.display = "block";
-                    });
-                });
-            });
-        };
-        reader.readAsArrayBuffer(fileInput);
     });
-    
-    document.getElementById("removeBackground").addEventListener("click", function () {
-        alert("Background removal is available for premium users only.");
-    });
-    
-    document.getElementById("buyPremium").addEventListener("click", function () {
-        alert("Redirecting to payment gateway...");
-    });
-    
-    document.getElementById("submitFeedback").addEventListener("click", function () {
-        alert("Thank you for your feedback!");
-    });
-    
-    document.getElementById("convertMp4ToMp3").addEventListener("click", function () {
-        const fileInput = document.getElementById("mp4Input").files[0];
-        if (!fileInput) {
-            alert("Please select an MP4 file.");
-            return;
-        }
-        
-        const formData = new FormData();
-        formData.append("video", fileInput);
-        
-        fetch("https://your-backend-url.onrender.com/convert-mp4-to-mp3", {
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.downloadUrl) {
-                const downloadLink = document.getElementById("downloadMp3");
-                downloadLink.href = data.downloadUrl;
-                downloadLink.style.display = "block";
-            } else {
-                alert("Conversion failed. Please try again.");
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("An error occurred while converting.");
-        });
+    document.getElementById("buyPremium").addEventListener("click", () => {
+        alert("Redirecting to payment page...");
     });
 });
