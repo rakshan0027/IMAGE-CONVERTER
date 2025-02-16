@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Include jspdf
     const { jsPDF } = window.jspdf;
 
     const imageInput = document.getElementById("imageInput");
@@ -15,14 +16,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const removeBgInput = document.getElementById("removeBgInput");
     const removeBackground = document.getElementById("removeBackground");
-    const buyPremium = document.getElementById("buyPremium");
 
     const navLinks = document.querySelectorAll('nav ul li a');
     const toolSections = document.querySelectorAll('.tool-section');
 
     // Image Conversion
     convertBtn.addEventListener("click", () => {
-        const file = imageInput.files; // Get the file correctly
+        const file = imageInput.files;
         if (!file) return alert("Please select an image!");
 
         progressBarContainer.style.display = "block";
@@ -106,17 +106,49 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     });
 
-    // Background Removal (Placeholder)
+    // Background Removal (Remove.bg)
     removeBackground.addEventListener("click", () => {
         const file = removeBgInput.files;
         if (!file) return alert("Please select an image to remove background!");
 
-        alert("Background removal is a placeholder.  Buy Premium to unlock this feature.");
+        const apiKey = 'AH2afjdh9BatTRDPxsNkjzRm'; // Replace with your actual API key
+
+        const formData = new FormData();
+        formData.append('image', file);
+
+        fetch('https://api.remove.bg/v1.0/removebg', {
+            method: 'POST',
+            headers: {
+                'X-API-Key': apiKey,
+            },
+            body: formData,
+        })
+      .then(response => {
+            if (!response.ok) {
+                return response.json().then(err => {
+                    throw new Error(err.description || 'Background removal failed');
+                });
+            }
+            return response.blob();
+        })
+      .then(blob => {
+            const imageUrl = URL.createObjectURL(blob);
+
+            // Display the result
+            const imgElement = document.createElement('img');
+            imgElement.src = imageUrl;
+            imgElement.style.maxWidth = '100%';
+            imgElement.style.height = 'auto';
+            imagePreview.innerHTML = '';
+            imagePreview.appendChild(imgElement);
+
+        })
+      .catch(error => {
+            console.error("Error removing background:", error);
+            alert(error.message);
+        });
     });
 
-    buyPremium.addEventListener("click", () => {
-        alert("Redirecting to payment page...");
-    });
 
     // Navigation
     navLinks.forEach(link => {
