@@ -7,7 +7,8 @@
     <title>AI Image Converter</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4625351312268360"
+    <script src="https://sdk.fotor.com/FotorFrameV6.min.js?20180530"></script> <script async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4625351312268360"
         crossorigin="anonymous"></script>
 </head>
 
@@ -19,6 +20,7 @@
                 <li><a href="#imageConverter">Image Converter</a></li>
                 <li><a href="#pdfConverter">PDF Converter</a></li>
                 <li><a href="#removeBG">Remove Background</a></li>
+                <li><a href="#otherServices">Other Services</a></li>
             </ul>
         </nav>
     </header>
@@ -38,7 +40,8 @@
                 <p id="progressText">Processing...</p>
             </div>
             <a id="downloadLink" class="download-btn" style="display:none;">Download Converted Image</a>
-            <div id="imagePreview"></div> </section>
+            <div id="imagePreview"></div>
+        </section>
 
         <section id="pdfConverter" class="tool-section">
             <h2>PDF Converter</h2>
@@ -47,10 +50,28 @@
         </section>
 
         <section id="removeBG" class="tool-section">
-            <h2>Remove Background (Placeholder)</h2>
-            <p>Background removal is a premium feature. <a href="#" id="buyPremium">Buy Premium</a> to use it.</p>
+            <h2>Remove Background (Powered by Remove.bg)</h2> 
             <input type="file" id="removeBgInput" accept="image/*">
             <button id="removeBackground">Remove Background</button>
+        </section>
+
+        <section id="otherServices" class="tool-section">
+            <h2>Other Useful Services</h2>
+            <div class="service-grid">
+                <div class="service-item">
+                    <h3>Photo Editor (Powered by Fotor)</h3>
+                    <p>Edit images with filters, effects, and more.</p>
+                    <div onclick="FotorFrame.show('design', '','a2c8b818acb74da6982ece0b478a2f2f')"
+                        style="border: 1px solid #1375fa;background-color: #1375fa;color: #fff;max-width:220px;cursor:pointer;height: auto;line-height: 40px;border-radius: 4px;font-family: 'Helvetica-Bold';display: -webkit-flex;display: -ms-flexbox;display: flex;margin-left: 10px;align-items: center;">
+                        <i style="display: -webkit-flex; display: -ms-flexbox;display: flex;padding: 0 10px;">
+                            <img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NzNGRUVGOTI1RDVGMTFFODk2MURDRTRCNEE5RkEzN0IiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NzNGRUVGOTM1RDVGMTFFODk2MURDRTRCNEE5RkEzN0IiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo3M0ZFRUY5MDVENUYxMUU4OTYxRENFNEI0QTlGQTM3QiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo3M0ZFRUY5MTVENUYxMUU4OTYxRENFNEI0QTlGQTM3QiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PmnFwjoAAARNSURBVHjaRFRbb9xEGD1z8WXtZG9Jk/SC1EqINhWiCIpaqVKF4AHBnwB+A3+DN94pSPwAnhBCSCioLUKoVZu2RIpKaFOSJinJrvdir72eGc7aibDl9fjbmTPfd875Rt9/8Bog7OU4nn5p3NGNhfgGFqMbrij3ASg4GfHvIYLkO75zOMGw45IYKF5A5M/5HeDOIMUX1mJDC+lW4zj/QylEMDH62T3MB5fgqTZKk0BA8uEtiCQJ5CoAuIyALxnyGNP4uBnh5jDFezJsFLektJE1AprZGJuil/7GcZMgGvV1glQPZ4DFLkGnHPsAM+N8xHMhvpbL0fRdxVmWWTj++rqNQf4EafEMvlr8HxCiHkYEGALlK0bDOjrbyyjA6+KqXDuYSyPtcDYq4UtHjhqQ0se/2S/cQHJMhONy4dWYxfMaX8iqXOjFGbhAvr6Y6h93m+5JEuKDlTHebueYMP1e0UVWbmNYPEQzvIncvKqEQFhnZvsEaPCZq0sutlrI759CeRA6fSaa4jDXuPVXC5ebOT45m+HCXIneNMZRdhuhfxVKNOF8A5Az84Lat/i0+bkXI/t9mRnPQwRTqG4GXdIHHU6eZ+qbwwBbmz6uL+b48LTGSrCDSXkHsXqfpXmwu1wUz0TwMF5bQb7RgaOYqjPhDtywlNCxLCpeQvI4A51YgfuHEluDgDR0cH3hLmSHXrX0JLkrtjuYPFqGGWjIdgYZlBUd1sw4dtCp9SunihM9OeiEDslE4dut0/h59BIfdX7CtdttTL5fwGh0ivzl5I8m5yY2ldV6d+wq0frm8z5VbNX6V6Fqoo5zmMYQSXYO8do5/PDVEVbRw6g7prkUppxTK+WOb64TLtFJeWyLE0SfJTTHrJ2SbrwD7LyFC3f38cDrI5qugEphDkNoGBQENjjuRV6Wbw2dV/xAMTg/rP3293ng8ZucdwrL/ZfM7AX6Z0bY3fPQydmeSqCrBmiptILKBUsXomoPXVk8ZmM2qNTBEvDgCrDHd8vAaxxg9ckRxmwJZTxsNwu0DimGkdhBBz0XYYnAEXJmK+kqqowuXdpvAveu1JlpOrvTY9k+Lv45RmNskcYSYemQUsWtZonVvqZDDDKnsWW6aMkMC2pE35cEXL8ksPk6kNH68+RO072hj2avwPntMQYNsmJddWyF9NzOfImVVCAqBawuK/qPXIgBvdmVKbvx4Rs88EydlSKYmPEJrG4OIQlUKJLKt2Wf65nfCPC0zeLoE+EqbRFIruN43zYiGbTGj6AoDHnBzJyRxNLeBMsHOQaRqk6SE3MYfjS49jC02I8MAmY8i82yF2UJz7PrsqP8zzTEFJZ20Wyj3ODi0zEmnkBZOcJWu7vqmK4bgFTiGUWbku+ZOUxJw/hi6trqU6mFWO/6/nVfiF/hu8H55+mg2S+TNJCJMi4hXkK8xAmRcFlihE3Y+snIs8k/sRl41g0QiDW5EF6Dko//E2AABNbzsEXOl7UAAAAASUVORK5CYII=" /></i>
+                        <span class="choose-content"
+                            style="border-left: 1px solid rgba(0, 0, 0, 0.1);font-weight: bold;font-family: 'Helvetica-Light';padding: 0 20px;font-size: 14px;">Use
+                            Fotor to design</span>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -59,6 +80,9 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        FotorFrame.init(); // Initialize Fotor
+    </script>
 </body>
 
 </html>
