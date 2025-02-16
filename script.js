@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const formData = new FormData();
         formData.append('image', file);
 
-        fetch('https://api.remove.bg/v1.0/removebg', {
+        fetch('https://AH2afjdh9BatTRDPxsNkjzRm.remove.bg/v1.0/removebg', {
             method: 'POST',
             headers: {
                 'X-API-Key': apiKey,
