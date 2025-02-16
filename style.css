@@ -1,26 +1,26 @@
+/* Modern, Vibrant, and Futuristic Styling */
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #1e1e2e, #121212);
+    color: #fff;
+    text-align: center;
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #1f1c2c, #928dab);
-    color: #ffffff;
-    text-align: center;
 }
 
 nav {
     background: rgba(0, 0, 0, 0.8);
-    padding: 15px;
+    padding: 10px 0;
     position: fixed;
     width: 100%;
     top: 0;
-    left: 0;
     z-index: 1000;
 }
 
 nav ul {
     list-style: none;
     padding: 0;
-    margin: 0;
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -31,80 +31,82 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #fff;
     text-decoration: none;
-    font-size: 18px;
-    padding: 10px 15px;
-    border-radius: 8px;
-    transition: background 0.3s;
+    color: #0ff;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: color 0.3s;
 }
 
 nav ul li a:hover {
-    background: rgba(255, 255, 255, 0.2);
+    color: #f39c12;
 }
 
 .tool-section {
     display: none;
-    padding: 50px;
     margin-top: 80px;
+    padding: 30px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    width: 80%;
+    box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.5);
+    max-width: 600px;
     margin-left: auto;
     margin-right: auto;
 }
 
 h2 {
-    font-size: 28px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
+    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
+}
+
+input, select, button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+    font-size: 1rem;
 }
 
 button {
-    background: #ff5722;
-    border: none;
-    padding: 10px 15px;
-    font-size: 18px;
-    color: white;
-    border-radius: 5px;
+    background: linear-gradient(90deg, #0ff, #f39c12);
+    color: #000;
+    font-weight: bold;
     cursor: pointer;
-    transition: 0.3s;
+    transition: transform 0.2s, background 0.3s;
 }
 
 button:hover {
-    background: #e64a19;
+    transform: scale(1.05);
+    background: linear-gradient(90deg, #f39c12, #0ff);
 }
 
-input, select {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    font-size: 16px;
-    margin: 10px;
-}
-
-.download-btn {
-    display: inline-block;
-    padding: 10px 15px;
-    background: #4caf50;
-    color: white;
+a.download-btn {
+    display: none;
     text-decoration: none;
+    background: #0ff;
+    padding: 10px;
+    color: #000;
+    font-weight: bold;
     border-radius: 5px;
-    margin-top: 10px;
     transition: background 0.3s;
 }
 
-.download-btn:hover {
-    background: #388e3c;
+a.download-btn:hover {
+    background: #f39c12;
 }
 
-@media (max-width: 768px) {
-    nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
-    .tool-section {
-        width: 95%;
-    }
+.progress-container {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 10px;
+    background: #0ff;
+    border-radius: 5px;
+    transition: width 0.5s ease;
 }
