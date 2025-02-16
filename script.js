@@ -1,64 +1,136 @@
-<!DOCTYPE html>
-<html lang="en">
+document.addEventListener("DOMContentLoaded", () => {
+    const { jsPDF } = window.jspdf;
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Image Converter</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4625351312268360"
-        crossorigin="anonymous"></script>
-</head>
+    const imageInput = document.getElementById("imageInput");
+    const formatSelect = document.getElementById("formatSelect");
+    const convertBtn = document.getElementById("convertBtn");
+    const downloadLink = document.getElementById("downloadLink");
+    const progressBarContainer = document.getElementById("progressBarContainer");
+    const progressBar = document.getElementById("progressBar");
+    const progressText = document.getElementById("progressText");
+    const imagePreview = document.getElementById("imagePreview");
 
-<body>
-    <header>
-        <h1>AI Image Converter</h1>
-        <nav>
-            <ul>
-                <li><a href="#imageConverter">Image Converter</a></li>
-                <li><a href="#pdfConverter">PDF Converter</a></li>
-                <li><a href="#removeBG">Remove Background</a></li>
-            </ul>
-        </nav>
-    </header>
+    const pdfImageInput = document.getElementById("pdfImageInput");
+    const convertToPDF = document.getElementById("convertToPDF");
 
-    <main>
-        <section id="imageConverter" class="tool-section">
-            <h2>Image Converter</h2>
-            <input type="file" id="imageInput">
-            <select id="formatSelect">
-                <option value="png">PNG</option>
-                <option value="jpeg">JPEG</option>
-                <option value="webp">WEBP</option>
-            </select>
-            <button id="convertBtn">Convert</button>
-            <div id="progressBarContainer" style="display:none;">
-                <progress id="progressBar" value="0" max="100"></progress>
-                <p id="progressText">Processing...</p>
-            </div>
-            <a id="downloadLink" class="download-btn" style="display:none;">Download Converted Image</a>
-        </section>
+    const removeBgInput = document.getElementById("removeBgInput");
+    const removeBackground = document.getElementById("removeBackground");
+    const buyPremium = document.getElementById("buyPremium");
 
-        <section id="pdfConverter" class="tool-section">
-            <h2>PDF Converter</h2>
-            <input type="file" id="pdfImageInput">
-            <button id="convertToPDF">Convert to PDF</button>
-        </section>
+    const navLinks = document.querySelectorAll('nav ul li a');
+    const toolSections = document.querySelectorAll('.tool-section');
 
-        <section id="removeBG" class="tool-section">
-            <h2>Remove Background</h2>
-            <input type="file" id="removeBgInput">
-            <button id="removeBackground">Remove Background</button>
-            <button id="buyPremium">Buy Premium</button>
-        </section>
-    </main>
+    // Image Conversion
+    convertBtn.addEventListener("click", () => {
+        const file = imageInput.files; // Get the file correctly
+        if (!file) return alert("Please select an image!");
 
-    <footer>
-        <p>&copy; 2025 AI Image Converter</p>
-    </footer>
+        progressBarContainer.style.display = "block";
+        progressText.style.display = "block";
+        progressBar.value = 0;
 
-    <script src="script.js"></script>
-</body>
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
 
-</html>
+        reader.onload = () => {
+            const img = new Image();
+            img.src = reader.result;
+
+            img.onload = () => {
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d");
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+
+                let convertedImage;
+                if (formatSelect.value === "png") {
+                    convertedImage = canvas.toDataURL("image/png");
+                } else if (formatSelect.value === "jpeg") {
+                    convertedImage = canvas.toDataURL("image/jpeg");
+                } else if (formatSelect.value === "webp") {
+                    convertedImage = canvas.toDataURL("image/webp");
+                }
+
+                progressBar.value = 100;
+                progressText.textContent = "Conversion Complete!";
+
+                downloadLink.href = convertedImage;
+                downloadLink.download = `converted.${formatSelect.value}`;
+                downloadLink.style.display = "block";
+
+                progressBarContainer.style.display = "none";
+                progressText.style.display = "none";
+
+                // Display the converted image
+                const imgElement = document.createElement('img');
+                imgElement.src = convertedImage;
+                imgElement.style.maxWidth = '100%';
+                imgElement.style.height = 'auto';
+                imagePreview.innerHTML = ''; // Clear previous preview
+                imagePreview.appendChild(imgElement);
+            };
+        };
+    });
+
+    // PDF Conversion
+    convertToPDF.addEventListener("click", () => {
+        const file = pdfImageInput.files;
+        if (!file) return alert("Please select an image to convert to PDF");
+
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onload = () => {
+            try {
+                const pdf = new jsPDF();
+                pdf.addImage(reader.result, "JPEG", 10, 10, 180, 160);
+
+                const pdfBytes = pdf.output('arraybuffer');
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                const pdfUrl = URL.createObjectURL(blob);
+
+                const a = document.createElement('a');
+                a.href = pdfUrl;
+                a.download = 'converted.pdf';
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(pdfUrl);
+
+            } catch (error) {
+                console.error("Error converting to PDF:", error);
+                alert("An error occurred during PDF conversion.");
+            }
+        };
+    });
+
+    // Background Removal (Placeholder)
+    removeBackground.addEventListener("click", () => {
+        const file = removeBgInput.files;
+        if (!file) return alert("Please select an image to remove background!");
+
+        alert("Background removal is a placeholder.  Buy Premium to unlock this feature.");
+    });
+
+    buyPremium.addEventListener("click", () => {
+        alert("Redirecting to payment page...");
+    });
+
+    // Navigation
+    navLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            const targetId = link.getAttribute('href');
+
+            toolSections.forEach(section => section.classList.remove('active'));
+
+            document.querySelector(targetId).classList.add('active');
+        });
+    });
+
+    // Show the first section by default (optional)
+    document.querySelector('#imageConverter').classList.add('active');
+});
